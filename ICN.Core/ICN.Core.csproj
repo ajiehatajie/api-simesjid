@@ -1,0 +1,35 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Autofac" Version="4.9.2" />
+    <PackageReference Include="Dapper" Version="1.60.6" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ICN.Base\ICN.Base.csproj" />
+    <ProjectReference Include="..\ICN.Data\ICN.Data.csproj" />
+    <ProjectReference Include="..\ICN.Generic\ICN.Generic.csproj" />
+    <ProjectReference Include="..\ICN.Model\ICN.Model.csproj" />
+    <ProjectReference Include="..\ICN.Security\ICN.Security.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Properties\DbQuery.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>DbQuery.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\DbQuery.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>DbQuery.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
+</Project>
