@@ -158,8 +158,8 @@ INNER JOIN mst_users b ON a.account_userid=b.user_id where account_userid = ?use
   <data name="ExpenseNew" xml:space="preserve">
     <value>insert into trx_expenses (expense_id,expense_name,expense_amount,expense_ref,expense_date, 
                         expense_accountid,expense_categoryid,expense_subcategoryid,expense_note,expense_pictureid, 
-                        expense_created_by) values (?id,?name,?amount,?referency,?date,?account,?category,?subcategory 
-                        ,?note,picture,userid)</value>
+                        expense_created_by,expense_settingid) values (?id,?name,?amount,?referency,?date,?account,?category,?subcategory 
+                        ,?note,?picture,?userid,?settingid)</value>
   </data>
   <data name="ExpenseSearchByName" xml:space="preserve">
     <value>select * from trx_expenses where expense_created_by = ? userId and expense_name LIKE CONCAT('%',?cari,'%') order by expense_created desc</value>
@@ -178,8 +178,8 @@ INNER JOIN mst_users b ON a.account_userid=b.user_id where account_userid = ?use
   <data name="IncomeNew" xml:space="preserve">
     <value>insert into trx_incomes (income_id,income_name,income_amount,income_ref,income_date, 
                         income_accountid,income_categoryid,income_subcategoryid,income_note,income_pictureid, 
-                        income_created_by) values (?id,?name,?amount,?referency,?date,?account,?category,?subcategory 
-                        ,?note,picture,userid)</value>
+                        income_created_by,income_settingid) values (?id,?name,?amount,?referency,?date,?account,?category,?subcategory 
+                        ,?note,?picture,?userid,?settingid)</value>
   </data>
   <data name="IncomeSearchByName" xml:space="preserve">
     <value>select * from trx_incomes where income_created_by = ? userId and income_name LIKE CONCAT('%',?cari,'%') order by income_created desc</value>
@@ -257,5 +257,30 @@ SELECT role_id,?userid FROM mst_roles</value>
   </data>
   <data name="UserSearchByEmail" xml:space="preserve">
     <value>select * from mst_users where user_email = ?email</value>
+  </data>
+  <data name="TreeGetBySettingId" xml:space="preserve">
+    <value>select * from vi_tree where tree_settingid=?settingid order by tree_parentid asc</value>
+  </data>
+  <data name="TreeNew" xml:space="preserve">
+    <value>INSERT INTO mst_tree (tree_id,tree_userid,tree_jobposition,tree_parentid,tree_settingid,setting_created_by) 
+VALUES (?id,?userid,?job,?parent,?setting,?created_by)</value>
+  </data>
+  <data name="TreeSearchBySettingId" xml:space="preserve">
+    <value>SELECT * FROM vi_tree WHERE tree_settingid=?settingid ORDER BY tree_parentid ASC</value>
+  </data>
+  <data name="CategoryDeleteById" xml:space="preserve">
+    <value>delete from mst_categories where category_id = ?id and category_userid =?userid</value>
+  </data>
+  <data name="CategoryNew" xml:space="preserve">
+    <value>insert into mst_categories (category_id,category_name,category_desc,category_type,category_color,category_userid) values (?id,?name,?desc,?type,?color,?user)</value>
+  </data>
+  <data name="CategoryUpdate" xml:space="preserve">
+    <value>update from mst_categories set category_name=?name,category_desc=?desc,category_type=?type where account_id = ?id  and category_userid =?userid</value>
+  </data>
+  <data name="SubCategoryAdd" xml:space="preserve">
+    <value>insert into mst_categories (category_id,category_name,category_desc,category_type,category_color,category_parentid,category_userid) values (?id,?name,?desc,?type,?color,?parent,?user)</value>
+  </data>
+  <data name="TreeDeleteById" xml:space="preserve">
+    <value>DELETE FROM mst_tree WHERE tree_id=?id and tree_settingid=?settingid</value>
   </data>
 </root>

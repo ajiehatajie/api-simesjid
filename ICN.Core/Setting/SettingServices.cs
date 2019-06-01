@@ -15,7 +15,7 @@ namespace ICN.Core.Setting
     public class SettingServices : BaseDatabase, IBusiness<SettingModel>
     {
         public UserModel objUser = null;
-        private string SQL;
+       
 
         #region "CRUD"
 

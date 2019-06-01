@@ -15,7 +15,7 @@ namespace ICN.Core.Income
     public class IncomeServices : BaseDatabase, IBusiness<TransIncomeModel>
     {
         public UserModel objUser = null;
-        private string SQL;
+        
 
         #region "CRUD"
        
@@ -32,7 +32,7 @@ namespace ICN.Core.Income
                         name = data.income_name,amount = data.income_amount,
                         referency = data.income_ref,date = data.income_created,account = data.income_accountid,
                         category = data.income_categoryid, subcategory = data.income_subcategoryid,note= data.income_note,
-                        picture = data.income_pictureid,userid = objUser.user_id });
+                        picture = data.income_pictureid,userid = objUser.user_id,settingid = objUser.setting_id });
 
                 }
             }

@@ -1,6 +1,7 @@
 ﻿using Dapper;
 using ICN.Base;
 using ICN.Core.Account;
+using ICN.Core.Properties;
 using ICN.Interface;
 using ICN.Model;
 using ICN.Paging;
@@ -15,7 +16,7 @@ namespace ICN.Core.Category
     public class CategoryServices : BaseDatabase, IBusiness<CategoryModel>
     {
         public UserModel objUser = null;
-        private string SQL;
+       
 
         #region "CRUD"
 
@@ -26,9 +27,8 @@ namespace ICN.Core.Category
             {
                 using (var x = OpenDB())
                 {
-                    SQL = "insert into mst_categories (category_id,category_name,category_desc,category_type,category_color,category_userid) values (?id,?name,?desc,?type,?color,?user)";
                     var guid = Guid.NewGuid().ToString();
-                    return await x.ExecuteAsync(SQL, new {
+                    return await x.ExecuteAsync(DbQuery.CategoryNew, new {
                         id = guid, name = data.category_name, desc = data.category_desc,
                         type = data.category_type, color= data.category_color, user = objUser.user_id });
 
@@ -46,12 +46,10 @@ namespace ICN.Core.Category
             {
                 using (var x = OpenDB())
                 {
-                    SQL = "delete from mst_categories where category_id = ?id and category_userid =?userid ";
 
-                    var result = await x.ExecuteAsync(SQL, new { id = data, userid = objUser.user_id });
+                    return await x.ExecuteAsync(DbQuery.CategoryDeleteById, new { id = data, userid = objUser.user_id });
 
-                    return result;
-
+                   
                 }
             }
             catch (Exception ex)
@@ -68,12 +66,11 @@ namespace ICN.Core.Category
             {
                 using (var x = OpenDB())
                 {
+
+
+                    return await x.ExecuteAsync(DbQuery.CategoryUpdate, new { id = data.category_id,name = data.category_name,type = data.category_type, categor_userid = objUser.user_id });
+
                     
-                    SQL = "update from mst_categories set category_name=?name,category_desc=?desc,category_type=?type where account_id = ?id  and category_userid =?userid";
-
-                    var result = await x.ExecuteAsync(SQL, new { id = data.category_id,name = data.category_name,type = data.category_type, categor_userid = objUser.user_id });
-
-                    return result;
 
                 }
             }
@@ -89,9 +86,8 @@ namespace ICN.Core.Category
             {
                 using (var x = OpenDB())
                 {
-                    SQL = "insert into mst_categories (category_id,category_name,category_desc,category_type,category_color,category_parentid,category_userid) values (?id,?name,?desc,?type,?color,?parent,?user)";
                     var guid = Guid.NewGuid().ToString();
-                    return await x.ExecuteAsync(SQL, new { id = guid,
+                    return await x.ExecuteAsync(DbQuery.SubCategoryAdd, new { id = guid,
                         name = data.category_name,
                         desc = data.category_desc, type = data.category_type,
                         color = data.category_color,parent=data.category_parentid, user = objUser.user_id });

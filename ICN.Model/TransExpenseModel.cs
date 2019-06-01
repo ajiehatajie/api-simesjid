@@ -41,6 +41,9 @@ namespace ICN.Model
 
         public DateTime expense_created { get; set; }
 
+        [Required]
+        public string expense_settingid { get; set; }
+
         public DateTime expense_updated { get; set; }
 
         public string expense_created_by { get; set; }

@@ -15,7 +15,7 @@ namespace ICN.Core.Register
 {
     public class RegisterServices : BaseDatabase, IBusiness<RegisterModel>
     {
-        private string SQL;
+        
         public async Task<int> Add(RegisterModel data)
         {
             try

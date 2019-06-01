@@ -15,7 +15,7 @@ namespace ICN.Core.Picture
     public class PictureServices : BaseDatabase, IBusiness<PictureModel>
     {
         public UserModel objUser = null;
-        private string SQL;
+      
 
         #region "CRUD"
 

@@ -40,6 +40,8 @@ namespace ICN.Model
         public string user_remember_token { get; set; }
 
         public DateTime user_created { get; set; }
+
+        public string setting_id { get; set; }
     }
 
     public class UserModelOutput : IResponse<UserModel>

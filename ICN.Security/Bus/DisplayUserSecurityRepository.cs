@@ -34,7 +34,10 @@ namespace ICN.Security.Bus
             {
                 using (var x = OpenDB())
                 {
-                    Query = "select * from mst_users where user_id LIKE CONCAT('%',?id,'%') ";
+                    Query = @"SELECT * FROM mst_users a
+                                inner join mst_settings b on a.user_id=b.setting_created_by
+                                WHERE a.user_id LIKE CONCAT('%',?id,'%')";
+
                     return x.Query<UserModel>(Query, new { id = strSearch }).SingleOrDefault();
 
 

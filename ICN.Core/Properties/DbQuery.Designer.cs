@@ -107,6 +107,15 @@ namespace ICN.Core.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to delete from mst_categories where category_id = ?id and category_userid =?userid.
+        /// </summary>
+        internal static string CategoryDeleteById {
+            get {
+                return ResourceManager.GetString("CategoryDeleteById", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to select * from mst_categories where category_userid = ?userId and category_id=?id order by category_name asc.
         /// </summary>
         internal static string CategoryDetailByCategoryId {
@@ -125,11 +134,29 @@ namespace ICN.Core.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to insert into mst_categories (category_id,category_name,category_desc,category_type,category_color,category_userid) values (?id,?name,?desc,?type,?color,?user).
+        /// </summary>
+        internal static string CategoryNew {
+            get {
+                return ResourceManager.GetString("CategoryNew", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to select * from mst_categories where category_userid = ? userId and category_name LIKE CONCAT(&apos;%&apos;,?cari,&apos;%&apos;) order by category_name asc.
         /// </summary>
         internal static string CategorySearchByName {
             get {
                 return ResourceManager.GetString("CategorySearchByName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to update from mst_categories set category_name=?name,category_desc=?desc,category_type=?type where account_id = ?id  and category_userid =?userid.
+        /// </summary>
+        internal static string CategoryUpdate {
+            get {
+                return ResourceManager.GetString("CategoryUpdate", resourceCulture);
             }
         }
         
@@ -154,8 +181,8 @@ namespace ICN.Core.Properties {
         /// <summary>
         ///   Looks up a localized string similar to insert into trx_expenses (expense_id,expense_name,expense_amount,expense_ref,expense_date, 
         ///                        expense_accountid,expense_categoryid,expense_subcategoryid,expense_note,expense_pictureid, 
-        ///                        expense_created_by) values (?id,?name,?amount,?referency,?date,?account,?category,?subcategory 
-        ///                        ,?note,picture,userid).
+        ///                        expense_created_by,expense_settingid) values (?id,?name,?amount,?referency,?date,?account,?category,?subcategory 
+        ///                        ,?note,?picture,?userid,?settingid).
         /// </summary>
         internal static string ExpenseNew {
             get {
@@ -204,8 +231,8 @@ namespace ICN.Core.Properties {
         /// <summary>
         ///   Looks up a localized string similar to insert into trx_incomes (income_id,income_name,income_amount,income_ref,income_date, 
         ///                        income_accountid,income_categoryid,income_subcategoryid,income_note,income_pictureid, 
-        ///                        income_created_by) values (?id,?name,?amount,?referency,?date,?account,?category,?subcategory 
-        ///                        ,?note,picture,userid).
+        ///                        income_created_by,income_settingid) values (?id,?name,?amount,?referency,?date,?account,?category,?subcategory 
+        ///                        ,?note,?picture,?userid,?settingid).
         /// </summary>
         internal static string IncomeNew {
             get {
@@ -348,6 +375,15 @@ namespace ICN.Core.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to insert into mst_categories (category_id,category_name,category_desc,category_type,category_color,category_parentid,category_userid) values (?id,?name,?desc,?type,?color,?parent,?user).
+        /// </summary>
+        internal static string SubCategoryAdd {
+            get {
+                return ResourceManager.GetString("SubCategoryAdd", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to select * from vi_subcategory where category_userid = ?userId and category_id=?id order by category_name asc.
         /// </summary>
         internal static string SubCategoryDetail {
@@ -362,6 +398,43 @@ namespace ICN.Core.Properties {
         internal static string SubCategoryGetAll {
             get {
                 return ResourceManager.GetString("SubCategoryGetAll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to DELETE FROM mst_tree WHERE tree_id=?id and tree_settingid=?settingid.
+        /// </summary>
+        internal static string TreeDeleteById {
+            get {
+                return ResourceManager.GetString("TreeDeleteById", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to select * from vi_tree where tree_settingid=?settingid order by tree_parentid asc.
+        /// </summary>
+        internal static string TreeGetBySettingId {
+            get {
+                return ResourceManager.GetString("TreeGetBySettingId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to INSERT INTO mst_tree (tree_id,tree_userid,tree_jobposition,tree_parentid,tree_settingid,setting_created_by) 
+        ///VALUES (?id,?userid,?job,?parent,?setting,?created_by).
+        /// </summary>
+        internal static string TreeNew {
+            get {
+                return ResourceManager.GetString("TreeNew", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SELECT * FROM vi_tree WHERE tree_settingid=?settingid ORDER BY tree_parentid ASC.
+        /// </summary>
+        internal static string TreeSearchBySettingId {
+            get {
+                return ResourceManager.GetString("TreeSearchBySettingId", resourceCulture);
             }
         }
         

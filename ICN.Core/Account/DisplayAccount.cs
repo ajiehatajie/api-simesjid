@@ -15,7 +15,7 @@ namespace ICN.Core.Account
     {
         public UserModel objUser;
 
-        private readonly List<AccountModel> accountModels;
+      
 
         public AccountModel MasterData
         {

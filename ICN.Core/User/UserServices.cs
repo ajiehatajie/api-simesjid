@@ -16,7 +16,7 @@ namespace ICN.Core.User
     public class UserServices : BaseDatabase, IBusiness<UserModel>
     {
         public UserModel objUser = null;
-        private string SQL;
+      
 
         #region "CRUD"
 

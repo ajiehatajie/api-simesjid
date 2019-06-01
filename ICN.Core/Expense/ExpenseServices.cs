@@ -16,7 +16,7 @@ namespace ICN.Core.Expense
     {
 
         public UserModel objUser = null;
-        private string SQL;
+       
 
         #region "CRUD"
 
@@ -41,7 +41,8 @@ namespace ICN.Core.Expense
                         subcategory = data.expense_subcategoryid,
                         note = data.expense_note,
                         picture = data.expense_pictureid,
-                        userid = objUser.user_id
+                        userid = objUser.user_id,
+                        settingid = objUser.setting_id
                     });
 
                 }

@@ -15,7 +15,7 @@ namespace ICN.Core.Category
     {
         public UserModel objUser;
 
-        private readonly List<CategoryModel> accountModels;
+       
 
         public CategoryModel MasterData
         {

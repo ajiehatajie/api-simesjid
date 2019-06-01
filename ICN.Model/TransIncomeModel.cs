@@ -38,6 +38,9 @@ namespace ICN.Model
 
         public string income_pictureid { get; set; }
 
+        [Required]
+        public string income_settingid { get; set; }
+
         public DateTime income_created { get; set; }
 
         public DateTime income_updated { get; set; }

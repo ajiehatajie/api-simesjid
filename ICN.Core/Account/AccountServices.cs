@@ -16,7 +16,7 @@ namespace ICN.Core.Account
     {
        
         public UserModel objUser = null;
-        private string SQL;
+      
 
         #region "CRUD"
         public async Task<int> Add(AccountModel data)
