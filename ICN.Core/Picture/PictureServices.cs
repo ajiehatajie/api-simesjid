@@ -43,7 +43,7 @@ namespace ICN.Core.Picture
             }
         }
 
-        public async Task<int> Delete(string data)
+        public async Task<int> Delete(string id)
         {
             try
             {
@@ -51,7 +51,7 @@ namespace ICN.Core.Picture
                 {
 
 
-                    return await x.ExecuteAsync(DbQuery.PictureDelete, new { id = data, userid = objUser.user_id });
+                    return await x.ExecuteAsync(DbQuery.PictureDelete, new { id = id, userid = objUser.user_id });
 
                     
 
@@ -63,7 +63,7 @@ namespace ICN.Core.Picture
             }
         }
 
-        public async Task<int> Update(PictureModel data)
+        public async Task<int> Update(PictureModel data,string id)
         {
             try
             {
@@ -73,7 +73,7 @@ namespace ICN.Core.Picture
                    
                     return await x.ExecuteAsync(DbQuery.PictureUpdate, new
                     {
-                        id = data.picture_id,
+                        id = id,
                         name = data.picture_filename,
                         path = data.picture_path,
                         userid = objUser.user_id

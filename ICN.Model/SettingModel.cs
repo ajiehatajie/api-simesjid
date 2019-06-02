@@ -9,6 +9,7 @@ namespace ICN.Model
 {
     public class SettingModel
     {
+
         public string setting_id { get; set; }
 
         [StringLength(100, ErrorMessage = "{0} length must be between {2} and {1}.", MinimumLength = 3)]

@@ -42,14 +42,14 @@ namespace ICN.Core.Income
             }
         }
 
-        public async Task<int> Delete(string data)
+        public async Task<int> Delete(string id)
         {
             try
             {
                 using (var x = OpenDB())
                 {
                     
-                    return await x.ExecuteAsync(DbQuery.IncomeDelete, new { id = data, userid = objUser.user_id });
+                    return await x.ExecuteAsync(DbQuery.IncomeDelete, new { id = id, userid = objUser.user_id });
 
 
                 }
@@ -60,7 +60,7 @@ namespace ICN.Core.Income
             }
         }
 
-        public async Task<int> Update(TransIncomeModel data)
+        public async Task<int> Update(TransIncomeModel data,string id)
         {
             try
             {
@@ -69,7 +69,7 @@ namespace ICN.Core.Income
 
 
                     return await x.ExecuteAsync(DbQuery.IncomeUpdate, new {
-                        id = data.income_id,
+                        id = id,
                         name = data.income_name,
                         amount = data.income_amount,
                         referency = data.income_ref,

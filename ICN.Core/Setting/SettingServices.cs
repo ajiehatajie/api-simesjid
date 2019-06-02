@@ -70,7 +70,7 @@ namespace ICN.Core.Setting
             }
         }
 
-        public async Task<int> Update(SettingModel data)
+        public async Task<int> Update(SettingModel data,string id)
         {
             try
             {

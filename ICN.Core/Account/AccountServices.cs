@@ -16,7 +16,8 @@ namespace ICN.Core.Account
     {
        
         public UserModel objUser = null;
-      
+
+        public AccountModel objAccount = null;
 
         #region "CRUD"
         public async Task<int> Add(AccountModel data)
@@ -40,14 +41,14 @@ namespace ICN.Core.Account
             }
         }
 
-        public async Task<int> Delete(string data)
+        public async Task<int> Delete(string id)
         {
             try
             {
                 using (var x = OpenDB())
                 {
 
-                    return await x.ExecuteAsync(DbQuery.AccountDelete, new { id = data, userid = objUser.user_id });
+                    return await x.ExecuteAsync(DbQuery.AccountDelete, new { id = id, userid = objUser.user_id });
 
 
                 }
@@ -58,14 +59,14 @@ namespace ICN.Core.Account
             }
         }
 
-        public async Task<int> Update(AccountModel data)
+        public async Task<int> Update(AccountModel data,string id)
         {
             try
             {
                 using (var x = OpenDB())
                 {
 
-                    return await x.ExecuteAsync(DbQuery.AccountUpdate, new { id = data.account_id,
+                    return await x.ExecuteAsync(DbQuery.AccountUpdate, new { id = id,
                         name = data.account_name, balance = data.account_balance,
                         desc = data.account_desc, userid = objUser.user_id });
 

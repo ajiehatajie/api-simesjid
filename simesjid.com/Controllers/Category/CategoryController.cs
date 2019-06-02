@@ -141,6 +141,70 @@ namespace simesjid.com.Controllers.Category
             return Ok(categoryModel);
         }
 
+        [HttpPut("{id}")]
+        [Authorize(Roles = "Expense Category,Income Category")]
+        public IActionResult Update([FromBody] CategoryModel model,string id)
+        {
+            CategoryModelOutput categoryModel = new CategoryModelOutput();
+            try
+            {
+
+                if (ModelState.IsValid)
+                {
+                    _logger.Information("Update Category");
+                    UserSessionManager usrSession = new UserSessionManager();
+                    var user = User as ClaimsPrincipal;
+                    string userId = user.Claims.Where(c => c.Type == "USERID").Select(c => c.Value).SingleOrDefault();
+
+                    CategoryServices categoryServices = new CategoryServices
+                    {
+                        objUser = usrSession.UserLog(userId)._userInfo
+                    };
+
+                    var response = categoryServices.Update(model,id);
+
+                    categoryModel.IsSuccess = true;
+                    categoryModel.Message = "Success Update";
+                    categoryModel.Code = 200;
+                }
+                else
+                {
+                    _logger.Error("Update Category");
+
+
+                    string errordetails = "";
+                    var errors = new List<string>();
+                    foreach (var state in ModelState)
+                    {
+                        foreach (var error in state.Value.Errors)
+                        {
+                            string p = error.ErrorMessage;
+                            errordetails = errordetails + error.ErrorMessage;
+
+                        }
+                    }
+                    Dictionary<string, object> dict = new Dictionary<string, object>();
+                    dict.Add("error", errordetails);
+
+                    categoryModel.IsSuccess = false;
+                    categoryModel.Message = "error Update validating";
+                    categoryModel.Code = 422;
+                    categoryModel.CustomField = dict;
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                _logger.Error("Update Category" + ex.Message);
+                categoryModel.IsSuccess = false;
+                categoryModel.Message = "Failed Saving Update" + ex.Message;
+                categoryModel.Code = 422;
+
+            }
+
+            return Ok(categoryModel);
+        }
         // Detail api/v1/category/5
         [HttpGet("{id}")]
         public IActionResult DetailCategory(string id)

@@ -10,9 +10,9 @@ namespace ICN.Interface
     {
         Task<int> Add(T data);
 
-        Task<int> Delete(string data);
+        Task<int> Delete(string id);
 
-        Task<int> Update(T data);
+        Task<int> Update(T data,string id);
 
         PagedList<T> GetAll(PagingParams pagingParams);
     }

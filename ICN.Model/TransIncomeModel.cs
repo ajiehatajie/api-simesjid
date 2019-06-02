@@ -1,4 +1,5 @@
-﻿using ICN.Interface;
+﻿using ICN.Generic;
+using ICN.Interface;
 using ICN.Paging;
 using System;
 using System.Collections.Generic;
@@ -48,6 +49,14 @@ namespace ICN.Model
         public string income_created_by { get; set; }
 
         public string income_updated_by { get; set; }
+
+        public string income_amount_rupiah
+        {
+            get
+            {
+                return GlobalFunction.Terbilang(Convert.ToInt32(income_amount));
+            }
+        }
     }
 
     public class TransIncomeModelOutput : IResponse<TransIncomeModel>

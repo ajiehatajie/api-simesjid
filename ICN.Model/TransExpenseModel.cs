@@ -1,4 +1,5 @@
-﻿using ICN.Interface;
+﻿using ICN.Generic;
+using ICN.Interface;
 using ICN.Paging;
 using System;
 using System.Collections.Generic;
@@ -49,6 +50,16 @@ namespace ICN.Model
         public string expense_created_by { get; set; }
 
         public string expense_updated_by { get; set; }
+
+        public string expense_amount_rupiah
+        {
+           get
+            {
+                return GlobalFunction.Terbilang(Convert.ToInt32(expense_amount));
+            }
+            
+
+        }
     }
 
     public class TransExpenseModelOutput : IResponse<TransExpenseModel>

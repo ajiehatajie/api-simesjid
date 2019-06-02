@@ -140,7 +140,72 @@ namespace simesjid.com.Controllers.Expense
             return Ok(_expenseModel);
         }
 
+        [HttpPut("{id}")]
+        [Authorize(Roles = "Transactions")]
+        public IActionResult Update([FromBody] TransExpenseModel model,string id)
 
+        {
+            TransExpenseModelOutput _expenseModel = new TransExpenseModelOutput();
+            try
+            {
+
+                if (ModelState.IsValid)
+                {
+                    _logger.Information("update Post Expense");
+                    UserSessionManager usrSession = new UserSessionManager();
+                    var user = User as ClaimsPrincipal;
+                    string userId = user.Claims.Where(c => c.Type == "USERID").Select(c => c.Value).SingleOrDefault();
+
+                    ExpenseServices _expense = new ExpenseServices
+                    {
+                        objUser = usrSession.UserLog(userId)._userInfo
+                    };
+
+                    var response = _expense.Update(model,id);
+
+                    _expenseModel.IsSuccess = true;
+                    _expenseModel.Message = "Success Saving";
+                    _expenseModel.Code = 200;
+                }
+                else
+                {
+                    _logger.Error("update Expense");
+
+
+                    string errordetails = "";
+                    var errors = new List<string>();
+                    foreach (var state in ModelState)
+                    {
+                        foreach (var error in state.Value.Errors)
+                        {
+                            string p = error.ErrorMessage;
+                            errordetails = errordetails + error.ErrorMessage;
+
+                        }
+                    }
+                    Dictionary<string, object> dict = new Dictionary<string, object>();
+                    dict.Add("error", errordetails);
+
+                    _expenseModel.IsSuccess = false;
+                    _expenseModel.Message = "error update saving validating";
+                    _expenseModel.Code = 422;
+                    _expenseModel.CustomField = dict;
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                _logger.Error("update Post Expense" + ex.Message);
+                _expenseModel.IsSuccess = false;
+                _expenseModel.Message = "Failed update" +
+                    " Saving" + ex.Message;
+                _expenseModel.Code = 422;
+
+            }
+
+            return Ok(_expenseModel);
+        }
         // DELETE api/v1/expense/5
         [HttpDelete("{id}")]
         [Authorize(Roles = "Transactions")]

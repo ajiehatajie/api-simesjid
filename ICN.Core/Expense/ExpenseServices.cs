@@ -53,7 +53,7 @@ namespace ICN.Core.Expense
             }
         }
 
-        public async Task<int> Delete(string data)
+        public async Task<int> Delete(string id)
         {
             try
             {
@@ -61,7 +61,7 @@ namespace ICN.Core.Expense
                 {
 
 
-                    return await x.ExecuteAsync(DbQuery.ExpenseDelete, new { id = data, userid = objUser.user_id });
+                    return await x.ExecuteAsync(DbQuery.ExpenseDelete, new { id = id, userid = objUser.user_id });
 
                    
 
@@ -73,7 +73,7 @@ namespace ICN.Core.Expense
             }
         }
 
-        public async Task<int> Update(TransExpenseModel data)
+        public async Task<int> Update(TransExpenseModel data,string id)
         {
             try
             {
@@ -83,7 +83,7 @@ namespace ICN.Core.Expense
                  
                     return await x.ExecuteAsync(DbQuery.ExpenseUpdate, new
                     {
-                        id = data.expense_id,
+                        id = id,
                         name = data.expense_name,
                         amount = data.expense_amount,
                         referency = data.expense_ref,

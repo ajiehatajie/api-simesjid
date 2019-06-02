@@ -135,7 +135,7 @@ INNER JOIN mst_users b ON a.account_userid=b.user_id where account_userid = ?use
     <comment>Search Account By User name</comment>
   </data>
   <data name="AccountUpdate" xml:space="preserve">
-    <value>update from mst_accounts set account_name=?name,account_balance=?balance,account_desc=?desc where account_id = ?id  and account_userid =?userid</value>
+    <value>update mst_accounts set account_name=?name,account_balance=?balance,account_desc=?desc where account_id = ?id  and account_userid =?userid</value>
     <comment>Update Account</comment>
   </data>
   <data name="CategoryDetailByCategoryId" xml:space="preserve">
@@ -185,7 +185,7 @@ INNER JOIN mst_users b ON a.account_userid=b.user_id where account_userid = ?use
     <value>select * from trx_incomes where income_created_by = ? userId and income_name LIKE CONCAT('%',?cari,'%') order by income_created desc</value>
   </data>
   <data name="IncomeUpdate" xml:space="preserve">
-    <value>update from trx_incomes set income_name=?name,income_amount=?amount,income_ref=?referency 
+    <value>update trx_incomes set income_name=?name,income_amount=?amount,income_ref=?referency 
                          income_date=?date,income_accountid=?account,income_categoryid=?category, 
                          income_subcategoryid=?subcategory,income_note=?note,income_pictureid=?picture,income_updated=?updated,income_updated_by=?userid where income_id = ?id  and income_created_by =?userid;</value>
   </data>
@@ -196,7 +196,7 @@ INNER JOIN mst_users b ON a.account_userid=b.user_id where account_userid = ?use
     <value>insert into mst_pictures (picture_id,picture_filename,picture_path,picture_created_by) values (?id,?name,?path,userid)</value>
   </data>
   <data name="PictureUpdate" xml:space="preserve">
-    <value>update from mst_pictures set picture_filename=?name,picture_path=?path where picture_id = ?id  and picture_created_by =?userid</value>
+    <value>update mst_pictures set picture_filename=?name,picture_path=?path where picture_id = ?id  and picture_created_by =?userid</value>
   </data>
   <data name="RegisterNew" xml:space="preserve">
     <value>insert into mst_users (user_id,user_name,user_email,user_password) values (?id,?name,?email,?password)</value>
@@ -227,7 +227,7 @@ SELECT role_id,?userid FROM mst_roles</value>
     <value>select * from mst_settings where setting_created_by = ? userId and setting_mosque_name LIKE CONCAT('%',?cari,'%') order by setting_created desc</value>
   </data>
   <data name="SettingUpdate" xml:space="preserve">
-    <value>update from mst_settings set setting_mosque_name=?name,setting_countries=?country,setting_city=?city 
+    <value>update mst_settings set setting_mosque_name=?name,setting_countries=?country,setting_city=?city 
                          setting_web=?web,setting_phone=?phone,setting_mosque_email=?email, 
                          setting_currency=?currency,setting_address=?address,setting_languange=?languange,setting_logo=?logo where setting_id = ?id  and setting_created_by =?userid;</value>
   </data>
@@ -253,7 +253,7 @@ SELECT role_id,?userid FROM mst_roles</value>
     <value>select * from mst_users where user_id = ? userId and user_name LIKE CONCAT('%',?cari,'%') order by user_name asc</value>
   </data>
   <data name="UserUpdate" xml:space="preserve">
-    <value>update from mst_users set user_name=?name,user_email=?email,user_password=?password,user_lastname=?lastname where user_id = ?userid</value>
+    <value>update mst_users set user_name=?name,user_email=?email,user_password=?password,user_lastname=?lastname where user_id = ?userid</value>
   </data>
   <data name="UserSearchByEmail" xml:space="preserve">
     <value>select * from mst_users where user_email = ?email</value>

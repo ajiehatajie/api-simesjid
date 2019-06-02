@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ICN.Generic\ICN.Generic.csproj" />
     <ProjectReference Include="..\ICN.Interface\ICN.Interface.csproj" />
     <ProjectReference Include="..\ICN.Paging\ICN.Paging.csproj" />
   </ItemGroup>

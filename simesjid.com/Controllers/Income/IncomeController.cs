@@ -141,7 +141,70 @@ namespace simesjid.com.Controllers.Income
             return Ok(_incomeModel);
         }
 
+        [HttpPut("{id}")]
+        [Authorize(Roles = "Transactions")]
+        public IActionResult Update([FromBody] TransIncomeModel model,string id)
+        {
+            TransIncomeModelOutput _incomeModel = new TransIncomeModelOutput();
+            try
+            {
 
+                if (ModelState.IsValid)
+                {
+                    _logger.Information("update Income");
+                    UserSessionManager usrSession = new UserSessionManager();
+                    var user = User as ClaimsPrincipal;
+                    string userId = user.Claims.Where(c => c.Type == "USERID").Select(c => c.Value).SingleOrDefault();
+
+                    IncomeServices _income = new IncomeServices
+                    {
+                        objUser = usrSession.UserLog(userId)._userInfo
+                    };
+
+                    var response = _income.Update(model,id);
+
+                    _incomeModel.IsSuccess = true;
+                    _incomeModel.Message = "Success update";
+                    _incomeModel.Code = 200;
+                }
+                else
+                {
+                    _logger.Error("update Income");
+
+
+                    string errordetails = "";
+                    var errors = new List<string>();
+                    foreach (var state in ModelState)
+                    {
+                        foreach (var error in state.Value.Errors)
+                        {
+                            string p = error.ErrorMessage;
+                            errordetails = errordetails + error.ErrorMessage;
+
+                        }
+                    }
+                    Dictionary<string, object> dict = new Dictionary<string, object>();
+                    dict.Add("error", errordetails);
+
+                    _incomeModel.IsSuccess = false;
+                    _incomeModel.Message = "error update saving validating";
+                    _incomeModel.Code = 422;
+                    _incomeModel.CustomField = dict;
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                _logger.Error("update Income" + ex.Message);
+                _incomeModel.IsSuccess = false;
+                _incomeModel.Message = "Failed Saving update" + ex.Message;
+                _incomeModel.Code = 422;
+
+            }
+
+            return Ok(_incomeModel);
+        }
         // DELETE api/v1/expense/5
         [HttpDelete("{id}")]
         [Authorize(Roles = "Transactions")]
@@ -215,6 +278,7 @@ namespace simesjid.com.Controllers.Income
             return new TransIncomeModel
             {
                 income_amount = model.income_amount,
+                //income_amount_rupiah = model.income_amount_rupiah,
                 income_accountid = model.income_accountid,
                 income_date = model.income_date,
                 income_name = model.income_name,

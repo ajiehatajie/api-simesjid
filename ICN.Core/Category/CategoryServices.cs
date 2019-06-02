@@ -40,14 +40,14 @@ namespace ICN.Core.Category
             }
         }
 
-        public async Task<int> Delete(string data)
+        public async Task<int> Delete(string id)
         {
             try
             {
                 using (var x = OpenDB())
                 {
 
-                    return await x.ExecuteAsync(DbQuery.CategoryDeleteById, new { id = data, userid = objUser.user_id });
+                    return await x.ExecuteAsync(DbQuery.CategoryDeleteById, new { id = id, userid = objUser.user_id });
 
                    
                 }
@@ -60,7 +60,7 @@ namespace ICN.Core.Category
 
        
 
-        public async Task<int> Update(CategoryModel data)
+        public async Task<int> Update(CategoryModel data,string id)
         {
             try
             {
@@ -68,7 +68,7 @@ namespace ICN.Core.Category
                 {
 
 
-                    return await x.ExecuteAsync(DbQuery.CategoryUpdate, new { id = data.category_id,name = data.category_name,type = data.category_type, categor_userid = objUser.user_id });
+                    return await x.ExecuteAsync(DbQuery.CategoryUpdate, new { id = id,name = data.category_name,type = data.category_type, categor_userid = objUser.user_id });
 
                     
 

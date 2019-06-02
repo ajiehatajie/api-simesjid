@@ -1,4 +1,5 @@
-﻿using ICN.Interface;
+﻿using ICN.Generic;
+using ICN.Interface;
 using ICN.Paging;
 using System;
 using System.Collections.Generic;
@@ -9,6 +10,7 @@ namespace ICN.Model
 {
     public class AccountModel
     {
+       
         public string account_id { get; set; }
 
         [Required]
@@ -26,6 +28,14 @@ namespace ICN.Model
         public string user_name { get; set; }
 
         public string user_email { get; set; }
+
+        public string account_balance_rupiah
+        {
+            get
+            {
+                return GlobalFunction.Terbilang(Convert.ToInt32(account_balance));
+            }
+        }
 
     }
 

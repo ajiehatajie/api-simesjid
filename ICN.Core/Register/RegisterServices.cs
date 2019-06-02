@@ -78,7 +78,7 @@ namespace ICN.Core.Register
                 throw ex;
             }
         }
-        public Task<int> Delete(string data)
+        public Task<int> Delete(string id)
         {
             throw new NotImplementedException();
         }
@@ -88,7 +88,7 @@ namespace ICN.Core.Register
             throw new NotImplementedException();
         }
 
-        public Task<int> Update(RegisterModel data)
+        public Task<int> Update(RegisterModel data,string id)
         {
             throw new NotImplementedException();
         }

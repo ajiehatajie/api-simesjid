@@ -98,7 +98,7 @@ namespace ICN.Core.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to update from mst_accounts set account_name=?name,account_balance=?balance,account_desc=?desc where account_id = ?id  and account_userid =?userid.
+        ///   Looks up a localized string similar to update mst_accounts set account_name=?name,account_balance=?balance,account_desc=?desc where account_id = ?id  and account_userid =?userid.
         /// </summary>
         internal static string AccountUpdate {
             get {
@@ -250,7 +250,7 @@ namespace ICN.Core.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to update from trx_incomes set income_name=?name,income_amount=?amount,income_ref=?referency 
+        ///   Looks up a localized string similar to update trx_incomes set income_name=?name,income_amount=?amount,income_ref=?referency 
         ///                         income_date=?date,income_accountid=?account,income_categoryid=?category, 
         ///                         income_subcategoryid=?subcategory,income_note=?note,income_pictureid=?picture,income_updated=?updated,income_updated_by=?userid where income_id = ?id  and income_created_by =?userid;.
         /// </summary>
@@ -279,7 +279,7 @@ namespace ICN.Core.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to update from mst_pictures set picture_filename=?name,picture_path=?path where picture_id = ?id  and picture_created_by =?userid.
+        ///   Looks up a localized string similar to update mst_pictures set picture_filename=?name,picture_path=?path where picture_id = ?id  and picture_created_by =?userid.
         /// </summary>
         internal static string PictureUpdate {
             get {
@@ -364,7 +364,7 @@ namespace ICN.Core.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to update from mst_settings set setting_mosque_name=?name,setting_countries=?country,setting_city=?city 
+        ///   Looks up a localized string similar to update mst_settings set setting_mosque_name=?name,setting_countries=?country,setting_city=?city 
         ///                         setting_web=?web,setting_phone=?phone,setting_mosque_email=?email, 
         ///                         setting_currency=?currency,setting_address=?address,setting_languange=?languange,setting_logo=?logo where setting_id = ?id  and setting_created_by =?userid;.
         /// </summary>
@@ -493,7 +493,7 @@ namespace ICN.Core.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to update from mst_users set user_name=?name,user_email=?email,user_password=?password,user_lastname=?lastname where user_id = ?userid.
+        ///   Looks up a localized string similar to update mst_users set user_name=?name,user_email=?email,user_password=?password,user_lastname=?lastname where user_id = ?userid.
         /// </summary>
         internal static string UserUpdate {
             get {

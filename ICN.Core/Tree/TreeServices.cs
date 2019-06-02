@@ -44,7 +44,7 @@ namespace ICN.Core.Tree
             }
         }
 
-        public async Task<int> Delete(string data)
+        public async Task<int> Delete(string id)
         {
             try
             {
@@ -52,7 +52,7 @@ namespace ICN.Core.Tree
                 {
 
 
-                    return await x.ExecuteAsync(DbQuery.TreeDeleteById, new { id = data, settingid = objUser.setting_id });
+                    return await x.ExecuteAsync(DbQuery.TreeDeleteById, new { id = id, settingid = objUser.setting_id });
 
                     
 
@@ -69,7 +69,7 @@ namespace ICN.Core.Tree
             throw new NotImplementedException();
         }
 
-        public Task<int> Update(TreeModel data)
+        public Task<int> Update(TreeModel data,string id)
         {
             throw new NotImplementedException();
         }

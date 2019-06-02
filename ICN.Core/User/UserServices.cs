@@ -67,7 +67,7 @@ namespace ICN.Core.User
 
 
 
-        public async Task<int> Update(UserModel data)
+        public async Task<int> Update(UserModel data,string id)
         {
             try
             {

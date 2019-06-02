@@ -40,7 +40,10 @@ namespace simesjid.com.Controllers
         public void Put(int id, [FromBody] string value)
         {
         }
-
+        /// <summary>
+        /// Deletes a specific TodoItem.
+        /// </summary>
+        /// <param name="id"></param>   
         // DELETE api/values/5
         [HttpDelete("{id}")]
         public void Delete(int id)

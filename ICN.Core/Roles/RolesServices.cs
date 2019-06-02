@@ -16,7 +16,7 @@ namespace ICN.Core.Roles
             throw new NotImplementedException();
         }
 
-        public Task<int> Delete(string data)
+        public Task<int> Delete(string id)
         {
             throw new NotImplementedException();
         }
@@ -26,7 +26,7 @@ namespace ICN.Core.Roles
             throw new NotImplementedException();
         }
 
-        public Task<int> Update(RoleModel data)
+        public Task<int> Update(RoleModel data,string id )
         {
             throw new NotImplementedException();
         }
