@@ -11,7 +11,7 @@ using ICN.Security;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace simesjid.com.Controllers.Category
+namespace simesjid.com.Controllers.Category.API.V1
 {
     [Route("api/v1/subcategory")]
     [Authorize]

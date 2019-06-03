@@ -2,14 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace simesjid.com.Controllers.Roles
+namespace simesjid.com.Controllers.Report.API.V1
 {
-    [Route("api/v1/roles")]
-    [Authorize]
-    public class RolesAccessController : Controller
+    public class ReportController : Controller
     {
         public IActionResult Index()
         {

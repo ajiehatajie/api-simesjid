@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using ICN.Core.Expense;
+using ICN.Core.Income;
 using ICN.Interface;
 using ICN.Model;
 using ICN.Paging;
@@ -11,48 +11,49 @@ using ICN.Security;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace simesjid.com.Controllers.Expense
+namespace simesjid.com.Controllers.Income.API.V1
 {
-    [Route("api/v1/expense")]
+    [Route("api/v1/income")]
     [Authorize]
-    public class ExpenseController : Controller
+
+    public class IncomeController : Controller
     {
         private ILoggerManager _logger;
-        private PagedList<TransExpenseModel> objResponse;
+        private PagedList<TransIncomeModel> objResponse;
 
-        public ExpenseController(ILoggerManager logger)
+        public IncomeController(ILoggerManager logger)
         {
 
             _logger = logger;
         }
 
-        [HttpGet(Name = "GetExpense")]
-        [Authorize(Roles = "Expense")]
+        [HttpGet(Name = "GetIncome")]
+        [Authorize(Roles = "Income")]
         public IActionResult Index(PagingParams pagingParams)
         {
             try
             {
-                _logger.Information("GetExpense");
+                _logger.Information("GetIncome");
                 UserSessionManager usrSession = new UserSessionManager();
                 var user = User as ClaimsPrincipal;
                 string userId = user.Claims.Where(c => c.Type == "USERID").Select(c => c.Value).SingleOrDefault();
 
-                ExpenseServices _expense = new ExpenseServices
+                IncomeServices _income = new IncomeServices
                 {
                     objUser = usrSession.UserLog(userId)._userInfo
                 };
 
-                objResponse = _expense.GetAll(pagingParams);
+                objResponse = _income.GetAll(pagingParams);
 
                 Response.Headers.Add("X-Pagination", objResponse.GetHeader().ToJson());
 
-                var response = new TransExpenseModelOutput
+                var response = new TransIncomeModelOutput
                 {
                     IsSuccess = true,
                     Code = 200,
                     Message = "Success Get Expense",
-                    Data = objResponse.List.Select(m => ExpenseInfo(m)).ToList(),
-                    Pagination = GetLinks(objResponse, "GetExpense")
+                    Data = objResponse.List.Select(m => IncomeInfo(m)).ToList(),
+                    Pagination = GetLinks(objResponse, "GetIncome")
 
                 };
                 return Ok(response);
@@ -62,7 +63,7 @@ namespace simesjid.com.Controllers.Expense
             catch (Exception ex)
             {
                 _logger.Error(ex.Message.ToString());
-                var response = new TransExpenseModelOutput
+                var response = new TransIncomeModelOutput
                 {
                     IsSuccess = false,
                     Code = 422,
@@ -75,35 +76,35 @@ namespace simesjid.com.Controllers.Expense
 
         }
 
-        [HttpPost(Name = "PostExpense")]
+        [HttpPost(Name = "PostIncome")]
         [Authorize(Roles = "Transactions")]
-        public IActionResult Store([FromBody] TransExpenseModel model)
+        public IActionResult Store([FromBody] TransIncomeModel model)
         {
-            TransExpenseModelOutput _expenseModel = new TransExpenseModelOutput();
+            TransIncomeModelOutput _incomeModel = new TransIncomeModelOutput();
             try
             {
 
                 if (ModelState.IsValid)
                 {
-                    _logger.Information("Post Expense");
+                    _logger.Information("Post Income");
                     UserSessionManager usrSession = new UserSessionManager();
                     var user = User as ClaimsPrincipal;
                     string userId = user.Claims.Where(c => c.Type == "USERID").Select(c => c.Value).SingleOrDefault();
 
-                    ExpenseServices _expense = new ExpenseServices
+                    IncomeServices _income = new IncomeServices
                     {
                         objUser = usrSession.UserLog(userId)._userInfo
                     };
 
-                    var response = _expense.Add(model);
+                    var response = _income.Add(model);
 
-                    _expenseModel.IsSuccess = true;
-                    _expenseModel.Message = "Success Saving";
-                    _expenseModel.Code = 200;
+                    _incomeModel.IsSuccess = true;
+                    _incomeModel.Message = "Success Saving";
+                    _incomeModel.Code = 200;
                 }
                 else
                 {
-                    _logger.Error("Post Expense");
+                    _logger.Error("Post Income");
 
 
                     string errordetails = "";
@@ -120,56 +121,55 @@ namespace simesjid.com.Controllers.Expense
                     Dictionary<string, object> dict = new Dictionary<string, object>();
                     dict.Add("error", errordetails);
 
-                    _expenseModel.IsSuccess = false;
-                    _expenseModel.Message = "error saving validating";
-                    _expenseModel.Code = 422;
-                    _expenseModel.CustomField = dict;
+                    _incomeModel.IsSuccess = false;
+                    _incomeModel.Message = "error saving validating";
+                    _incomeModel.Code = 422;
+                    _incomeModel.CustomField = dict;
                 }
 
 
             }
             catch (Exception ex)
             {
-                _logger.Error("Post Expense" + ex.Message);
-                _expenseModel.IsSuccess = false;
-                _expenseModel.Message = "Failed Saving" + ex.Message;
-                _expenseModel.Code = 422;
+                _logger.Error("Post Income" + ex.Message);
+                _incomeModel.IsSuccess = false;
+                _incomeModel.Message = "Failed Saving" + ex.Message;
+                _incomeModel.Code = 422;
 
             }
 
-            return Ok(_expenseModel);
+            return Ok(_incomeModel);
         }
 
         [HttpPut("{id}")]
         [Authorize(Roles = "Transactions")]
-        public IActionResult Update([FromBody] TransExpenseModel model,string id)
-
+        public IActionResult Update([FromBody] TransIncomeModel model,string id)
         {
-            TransExpenseModelOutput _expenseModel = new TransExpenseModelOutput();
+            TransIncomeModelOutput _incomeModel = new TransIncomeModelOutput();
             try
             {
 
                 if (ModelState.IsValid)
                 {
-                    _logger.Information("update Post Expense");
+                    _logger.Information("update Income");
                     UserSessionManager usrSession = new UserSessionManager();
                     var user = User as ClaimsPrincipal;
                     string userId = user.Claims.Where(c => c.Type == "USERID").Select(c => c.Value).SingleOrDefault();
 
-                    ExpenseServices _expense = new ExpenseServices
+                    IncomeServices _income = new IncomeServices
                     {
                         objUser = usrSession.UserLog(userId)._userInfo
                     };
 
-                    var response = _expense.Update(model,id);
+                    var response = _income.Update(model,id);
 
-                    _expenseModel.IsSuccess = true;
-                    _expenseModel.Message = "Success Saving";
-                    _expenseModel.Code = 200;
+                    _incomeModel.IsSuccess = true;
+                    _incomeModel.Message = "Success update";
+                    _incomeModel.Code = 200;
                 }
                 else
                 {
-                    _logger.Error("update Expense");
+                    _logger.Error("update Income");
 
 
                     string errordetails = "";
@@ -186,64 +186,63 @@ namespace simesjid.com.Controllers.Expense
                     Dictionary<string, object> dict = new Dictionary<string, object>();
                     dict.Add("error", errordetails);
 
-                    _expenseModel.IsSuccess = false;
-                    _expenseModel.Message = "error update saving validating";
-                    _expenseModel.Code = 422;
-                    _expenseModel.CustomField = dict;
+                    _incomeModel.IsSuccess = false;
+                    _incomeModel.Message = "error update saving validating";
+                    _incomeModel.Code = 422;
+                    _incomeModel.CustomField = dict;
                 }
 
 
             }
             catch (Exception ex)
             {
-                _logger.Error("update Post Expense" + ex.Message);
-                _expenseModel.IsSuccess = false;
-                _expenseModel.Message = "Failed update" +
-                    " Saving" + ex.Message;
-                _expenseModel.Code = 422;
+                _logger.Error("update Income" + ex.Message);
+                _incomeModel.IsSuccess = false;
+                _incomeModel.Message = "Failed Saving update" + ex.Message;
+                _incomeModel.Code = 422;
 
             }
 
-            return Ok(_expenseModel);
+            return Ok(_incomeModel);
         }
         // DELETE api/v1/expense/5
         [HttpDelete("{id}")]
         [Authorize(Roles = "Transactions")]
         public IActionResult Delete(string id)
         {
-            TransExpenseModelOutput _expenseModel = new TransExpenseModelOutput();
+            TransIncomeModelOutput _incomeModel = new TransIncomeModelOutput();
             try
             {
-                _logger.Information("Delete Expense " + id);
+                _logger.Information("Delete Income " + id);
                 UserSessionManager usrSession = new UserSessionManager();
                 var user = User as ClaimsPrincipal;
                 string userId = user.Claims.Where(c => c.Type == "USERID").Select(c => c.Value).SingleOrDefault();
 
-                ExpenseServices _expense = new ExpenseServices
+                IncomeServices _income = new IncomeServices
                 {
                     objUser = usrSession.UserLog(userId)._userInfo
                 };
 
-                var response = _expense.Delete(id);
+                var response = _income.Delete(id);
 
-                _expenseModel.IsSuccess = true;
-                _expenseModel.Message = "Success Delete";
-                _expenseModel.Code = 200;
+                _incomeModel.IsSuccess = true;
+                _incomeModel.Message = "Success Delete";
+                _incomeModel.Code = 200;
 
             }
             catch (Exception ex)
             {
-                _logger.Error("delete Expense" + ex.Message);
-                _expenseModel.IsSuccess = false;
-                _expenseModel.Message = "Failed Delete" + ex.Message;
-                _expenseModel.Code = 422;
+                _logger.Error("delete Income" + ex.Message);
+                _incomeModel.IsSuccess = false;
+                _incomeModel.Message = "Failed Delete" + ex.Message;
+                _incomeModel.Code = 422;
 
             }
-            return Ok(_expenseModel);
+            return Ok(_incomeModel);
         }
 
         #region " Links "
-        private List<LinkInfo> GetLinks(PagedList<TransExpenseModel> list, string routename)
+        private List<LinkInfo> GetLinks(PagedList<TransIncomeModel> list, string routename)
         {
             var links = new List<LinkInfo>();
             if (list.HasPreviousPage)
@@ -274,16 +273,17 @@ namespace simesjid.com.Controllers.Expense
 
         #region " Mappings "
 
-        private TransExpenseModel ExpenseInfo(TransExpenseModel model)
+        private TransIncomeModel IncomeInfo(TransIncomeModel model)
         {
-            return new TransExpenseModel
+            return new TransIncomeModel
             {
-                expense_amount = model.expense_amount,
-                expense_accountid = model.expense_accountid,
-                expense_date = model.expense_date,
-                expense_name = model.expense_name,
-                expense_categoryid = model.expense_categoryid
-               
+                income_amount = model.income_amount,
+                //income_amount_rupiah = model.income_amount_rupiah,
+                income_accountid = model.income_accountid,
+                income_date = model.income_date,
+                income_name = model.income_name,
+                income_categoryid = model.income_categoryid
+
             };
         }
 

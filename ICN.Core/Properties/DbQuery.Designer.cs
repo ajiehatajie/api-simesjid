@@ -261,6 +261,15 @@ namespace ICN.Core.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to SELECT * FROM mst_category_mosque ORDER BY category_name ASC.
+        /// </summary>
+        internal static string MosqueCategoryAll {
+            get {
+                return ResourceManager.GetString("MosqueCategoryAll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to delete from mst_pictures where picture_id = ?id and picture_created_by =?userid.
         /// </summary>
         internal static string PictureDelete {
@@ -288,6 +297,15 @@ namespace ICN.Core.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to SELECT * FROM mst_postal WHERE province=?province AND kabupaten=?kabupaten AND kecamatan=?kecamatan.
+        /// </summary>
+        internal static string PostalCodeSearch {
+            get {
+                return ResourceManager.GetString("PostalCodeSearch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to insert into mst_users (user_id,user_name,user_email,user_password) values (?id,?name,?email,?password).
         /// </summary>
         internal static string RegisterNew {
@@ -297,7 +315,9 @@ namespace ICN.Core.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to insert into mst_settings (setting_id,setting_mosque_name,setting_created_by) values (?id,?name,?userid).
+        ///   Looks up a localized string similar to INSERT INTO 
+        ///      mst_settings (setting_id,setting_mosque_name,setting_mosque_id,
+        ///      setting_created_by) VALUES (?id,?NAME,?TYPE,?userid).
         /// </summary>
         internal static string RegisterNewSetting {
             get {
@@ -343,10 +363,14 @@ namespace ICN.Core.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to insert into mst_settings (setting_id,setting_mosque_name,setting_countries,setting_city,setting_web, 
-        ///                        setting_phone,setting_mosque_email,setting_currency,setting_address,setting_languange, 
-        ///                        setting_logo,setting_created_by) values (?id,?name,?country,?city,?web,?phone,?email,?currency 
-        ///                        ,?address,languange,logo,userid).
+        ///   Looks up a localized string similar to INSERT INTO mst_settings (
+        ///setting_id,setting_mosque_name,
+        ///setting_mosque_id,setting_countries,setting_province,setting_kabupaten,
+        ///setting_kecamatan,setting_kelurahan,setting_postalcode,setting_address,	
+        ///setting_web,setting_phone,setting_mosque_email,setting_currency,setting_languange, 
+        ///setting_logo,setting_created_by) 
+        ///VALUES (?id,?NAME,?mosid,?country,?propinsi,?kabupaten,?kecamatan,?kelurahan,?postal,
+        ///?adress?,?web,?phone,?email,?currency,languange,logo,userid).
         /// </summary>
         internal static string SettingNew {
             get {
@@ -364,9 +388,11 @@ namespace ICN.Core.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to update mst_settings set setting_mosque_name=?name,setting_countries=?country,setting_city=?city 
-        ///                         setting_web=?web,setting_phone=?phone,setting_mosque_email=?email, 
-        ///                         setting_currency=?currency,setting_address=?address,setting_languange=?languange,setting_logo=?logo where setting_id = ?id  and setting_created_by =?userid;.
+        ///   Looks up a localized string similar to UPDATE mst_settings SET 
+        ///setting_mosque_name=?NAME,setting_countries=?country,setting_province=?propinsi,setting_kabupaten=?kabupaten,
+        ///,setting_kecamatan=?kecamatan,setting_kelurahan=?kelurahan, setting_postalcode=?postal,setting_address=?address, 
+        ///setting_web=?web,setting_phone=?phone,setting_mosque_email=?email, 
+        ///setting_currency=?currency,setting_languange=?languange,setting_logo=?logo WHERE setting_id = ?id  AND setting_created_by =?userid;.
         /// </summary>
         internal static string SettingUpdate {
             get {
@@ -498,6 +524,78 @@ namespace ICN.Core.Properties {
         internal static string UserUpdate {
             get {
                 return ResourceManager.GetString("UserUpdate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SELECT * FROM vi_kabupaten.
+        /// </summary>
+        internal static string ViKabupatenGetAll {
+            get {
+                return ResourceManager.GetString("ViKabupatenGetAll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SELECT * FROM vi_kabupaten WHERE kabupaten LIKE CONCAT(&apos;%&apos;,?kabupaten,&apos;%&apos;);.
+        /// </summary>
+        internal static string ViKabupatenSearchByName {
+            get {
+                return ResourceManager.GetString("ViKabupatenSearchByName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SELECT * FROM vi_kecamatan.
+        /// </summary>
+        internal static string ViKecamatanGetAll {
+            get {
+                return ResourceManager.GetString("ViKecamatanGetAll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SELECT * FROM vi_kecamatan WHERE kecamatan LIKE CONCAT(&apos;%&apos;,?kecamatan,&apos;%&apos;);.
+        /// </summary>
+        internal static string ViKecamatanSearchByName {
+            get {
+                return ResourceManager.GetString("ViKecamatanSearchByName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SELECT * FROM vi_kelurahan.
+        /// </summary>
+        internal static string ViKeluarahanGetAll {
+            get {
+                return ResourceManager.GetString("ViKeluarahanGetAll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SELECT * FROM vi_kelurahan WHERE kelurahan LIKE CONCAT(&apos;%&apos;,?kelurahan,&apos;%&apos;);.
+        /// </summary>
+        internal static string ViKelurahanSearchByName {
+            get {
+                return ResourceManager.GetString("ViKelurahanSearchByName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SELECT * FROM vi_province .
+        /// </summary>
+        internal static string ViProvinceGetAll {
+            get {
+                return ResourceManager.GetString("ViProvinceGetAll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SELECT * FROM vi_province WHERE province LIKE CONCAT(&apos;%&apos;,?province,&apos;%&apos;);.
+        /// </summary>
+        internal static string VIProvinceSearchByName {
+            get {
+                return ResourceManager.GetString("VIProvinceSearchByName", resourceCulture);
             }
         }
     }

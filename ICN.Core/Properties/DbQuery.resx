@@ -202,7 +202,9 @@ INNER JOIN mst_users b ON a.account_userid=b.user_id where account_userid = ?use
     <value>insert into mst_users (user_id,user_name,user_email,user_password) values (?id,?name,?email,?password)</value>
   </data>
   <data name="RegisterNewSetting" xml:space="preserve">
-    <value>insert into mst_settings (setting_id,setting_mosque_name,setting_created_by) values (?id,?name,?userid)</value>
+    <value>INSERT INTO 
+      mst_settings (setting_id,setting_mosque_name,setting_mosque_id,
+      setting_created_by) VALUES (?id,?NAME,?TYPE,?userid)</value>
   </data>
   <data name="RolesInsertRegister" xml:space="preserve">
     <value>INSERT INTO mst_access (access_roleid,access_userid)
@@ -218,18 +220,24 @@ SELECT role_id,?userid FROM mst_roles</value>
     <value>select * from mst_settings where setting_created_by = ?userId order by setting_mosque_name desc</value>
   </data>
   <data name="SettingNew" xml:space="preserve">
-    <value>insert into mst_settings (setting_id,setting_mosque_name,setting_countries,setting_city,setting_web, 
-                        setting_phone,setting_mosque_email,setting_currency,setting_address,setting_languange, 
-                        setting_logo,setting_created_by) values (?id,?name,?country,?city,?web,?phone,?email,?currency 
-                        ,?address,languange,logo,userid)</value>
+    <value>INSERT INTO mst_settings (
+setting_id,setting_mosque_name,
+setting_mosque_id,setting_countries,setting_province,setting_kabupaten,
+setting_kecamatan,setting_kelurahan,setting_postalcode,setting_address,	
+setting_web,setting_phone,setting_mosque_email,setting_currency,setting_languange, 
+setting_logo,setting_created_by) 
+VALUES (?id,?NAME,?mosid,?country,?propinsi,?kabupaten,?kecamatan,?kelurahan,?postal,
+?adress?,?web,?phone,?email,?currency,languange,logo,userid)</value>
   </data>
   <data name="SettingSearchByMosque" xml:space="preserve">
     <value>select * from mst_settings where setting_created_by = ? userId and setting_mosque_name LIKE CONCAT('%',?cari,'%') order by setting_created desc</value>
   </data>
   <data name="SettingUpdate" xml:space="preserve">
-    <value>update mst_settings set setting_mosque_name=?name,setting_countries=?country,setting_city=?city 
-                         setting_web=?web,setting_phone=?phone,setting_mosque_email=?email, 
-                         setting_currency=?currency,setting_address=?address,setting_languange=?languange,setting_logo=?logo where setting_id = ?id  and setting_created_by =?userid;</value>
+    <value>UPDATE mst_settings SET 
+setting_mosque_name=?NAME,setting_countries=?country,setting_province=?propinsi,setting_kabupaten=?kabupaten,
+,setting_kecamatan=?kecamatan,setting_kelurahan=?kelurahan, setting_postalcode=?postal,setting_address=?address, 
+setting_web=?web,setting_phone=?phone,setting_mosque_email=?email, 
+setting_currency=?currency,setting_languange=?languange,setting_logo=?logo WHERE setting_id = ?id  AND setting_created_by =?userid;</value>
   </data>
   <data name="SubCategoryDetail" xml:space="preserve">
     <value>select * from vi_subcategory where category_userid = ?userId and category_id=?id order by category_name asc</value>
@@ -282,5 +290,35 @@ VALUES (?id,?userid,?job,?parent,?setting,?created_by)</value>
   </data>
   <data name="TreeDeleteById" xml:space="preserve">
     <value>DELETE FROM mst_tree WHERE tree_id=?id and tree_settingid=?settingid</value>
+  </data>
+  <data name="ViKabupatenGetAll" xml:space="preserve">
+    <value>SELECT * FROM vi_kabupaten</value>
+  </data>
+  <data name="ViKabupatenSearchByName" xml:space="preserve">
+    <value>SELECT * FROM vi_kabupaten WHERE kabupaten LIKE CONCAT('%',?kabupaten,'%');</value>
+  </data>
+  <data name="ViKecamatanGetAll" xml:space="preserve">
+    <value>SELECT * FROM vi_kecamatan</value>
+  </data>
+  <data name="ViKecamatanSearchByName" xml:space="preserve">
+    <value>SELECT * FROM vi_kecamatan WHERE kecamatan LIKE CONCAT('%',?kecamatan,'%');</value>
+  </data>
+  <data name="ViKeluarahanGetAll" xml:space="preserve">
+    <value>SELECT * FROM vi_kelurahan</value>
+  </data>
+  <data name="ViKelurahanSearchByName" xml:space="preserve">
+    <value>SELECT * FROM vi_kelurahan WHERE kelurahan LIKE CONCAT('%',?kelurahan,'%');</value>
+  </data>
+  <data name="ViProvinceGetAll" xml:space="preserve">
+    <value>SELECT * FROM vi_province </value>
+  </data>
+  <data name="VIProvinceSearchByName" xml:space="preserve">
+    <value>SELECT * FROM vi_province WHERE province LIKE CONCAT('%',?province,'%');</value>
+  </data>
+  <data name="MosqueCategoryAll" xml:space="preserve">
+    <value>SELECT * FROM mst_category_mosque ORDER BY category_name ASC</value>
+  </data>
+  <data name="PostalCodeSearch" xml:space="preserve">
+    <value>SELECT * FROM mst_postal WHERE province=?province AND kabupaten=?kabupaten AND kecamatan=?kecamatan</value>
   </data>
 </root>

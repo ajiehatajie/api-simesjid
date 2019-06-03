@@ -30,7 +30,9 @@ namespace ICN.Core.Register
                     var res = await x.ExecuteAsync(DbQuery.RegisterNew, new {
                         id = guid, name = data.user_name,
                         email = data.user_email, password = hashedPassword });
-                    await CreateSetting(guid, data.mosque_name);
+
+                    await CreateSetting(guid, data.mosque_name,data.mosque_type);
+
                     await CreateRoles(guid);
                     return res;
                   
@@ -43,7 +45,7 @@ namespace ICN.Core.Register
             }
         }
 
-        private async Task CreateSetting(string userId,string Mosque)
+        private async Task CreateSetting(string userId,string Mosque,string type)
         {
             try
             {
@@ -51,7 +53,7 @@ namespace ICN.Core.Register
                 {
                     var guid = Guid.NewGuid().ToString();
                    
-                    await x.ExecuteAsync(DbQuery.RegisterNewSetting, new { id = guid, name=Mosque, userid = userId });
+                    await x.ExecuteAsync(DbQuery.RegisterNewSetting, new { id = guid, name=Mosque, userid = userId,type = type });
                     
                 }
             }

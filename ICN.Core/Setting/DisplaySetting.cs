@@ -45,10 +45,7 @@ namespace ICN.Core.Setting
             {
                 throw ex;
             }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+           
         }
 
         public object Search(string strSearch)

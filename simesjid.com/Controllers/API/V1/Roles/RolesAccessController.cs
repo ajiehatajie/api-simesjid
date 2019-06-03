@@ -2,11 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace simesjid.com.Controllers.Account
+namespace simesjid.com.Controllers.Roles.API.V1
 {
-    public class DetailAccountController : Controller
+    [Route("api/v1/roles")]
+    [Authorize]
+    public class RolesAccessController : Controller
     {
         public IActionResult Index()
         {

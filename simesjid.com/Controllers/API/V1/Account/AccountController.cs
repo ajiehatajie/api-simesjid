@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using ICN.Core.User;
+using ICN.Base;
+using ICN.Core.Account;
+using ICN.Generic;
 using ICN.Interface;
 using ICN.Model;
 using ICN.Paging;
@@ -11,97 +13,91 @@ using ICN.Security;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace simesjid.com.Controllers.User
+namespace simesjid.com.Controllers.Account.API.V1
 {
-    [Route("api/v1/user")]
-    [Authorize]
-    public class UserController : Controller
+
+    [Route("api/v1/account")]
+    [Authorize(Roles = "Accounts")]
+    public class AccountController : Controller
     {
+      
         private ILoggerManager _logger;
-        private PagedList<UserModel> objResponse;
+        private PagedList<AccountModel> objResponse;
 
-        public UserController(ILoggerManager logger)
+        public AccountController(ILoggerManager logger)
         {
-
+          
             _logger = logger;
         }
 
-        [HttpGet(Name = "GetUser")]
+        [HttpGet(Name = "GetAccount")]
+        
         public IActionResult Index(PagingParams pagingParams)
         {
             try
             {
-                _logger.Information("Get User");
+                _logger.Information("Get Account");
                 UserSessionManager usrSession = new UserSessionManager();
                 var user = User as ClaimsPrincipal;
                 string userId = user.Claims.Where(c => c.Type == "USERID").Select(c => c.Value).SingleOrDefault();
 
-                UserServices userServices  = new UserServices
+                AccountServices accountServices = new AccountServices
                 {
                     objUser = usrSession.UserLog(userId)._userInfo
                 };
 
-                objResponse = userServices.GetAll(pagingParams);
+                objResponse = accountServices.GetAll(pagingParams);
                 Response.Headers.Add("X-Pagination", objResponse.GetHeader().ToJson());
-                var response = new UserModelOutput
+                var response = new AccountModelOutput
                 {
                     IsSuccess = true,
                     Code = 200,
                     Message = "Success Get Account",
-                    Data = objResponse.List.Select(m => ToUserInfo(m)).ToList(),
-                    Pagination = GetLinks(objResponse, "GetAccount")
+                    Data = objResponse.List.Select(m => ToAccountInfo(m)).ToList(),
+                    Pagination  = GetLinks(objResponse, "GetAccount")
 
                 };
                 return Ok(response);
 
 
             }
-            catch (Exception ex)
+            catch(Exception ex)
             {
                 _logger.Error(ex.Message.ToString());
-                var response = new UserModelOutput
+                var response = new AccountModelOutput
                 {
                     IsSuccess = false,
                     Code = 422,
                     Message = ex.Message.ToString(),
-
+                  
                 };
                 return Ok(response);
             }
 
-
+           
         }
 
         [HttpPost]
-        [Authorize(Roles = "User Role")]
-        public IActionResult Post([FromBody]UserModel request)
+        [Authorize]
+        public IActionResult Post([FromBody]AccountModel request)
         {
             UserSessionManager usrSession = new UserSessionManager();
             var user = User as ClaimsPrincipal;
             string userId = user.Claims.Where(c => c.Type == "USERID").Select(c => c.Value).SingleOrDefault();
-            UserModelOutput userModelOutput = new UserModelOutput();
+            AccountModelOutput accountModelOutput = new AccountModelOutput();
             try
             {
-                _logger.Information("Saving User");
-                DisplayUser displayUser = new DisplayUser();
-                var query = new List<UserModel>((List<UserModel>)displayUser.DisplayAll()).AsQueryable();
-                var CheckEmail = query.Where(p => p.user_email.StartsWith(request.user_email ?? String.Empty, StringComparison.InvariantCultureIgnoreCase));
-
-                if (CheckEmail.Count() > 0)
-                {
-                    ModelState.AddModelError("Email", "Email already exists");
-                }
-
+                _logger.Information("Saving Account");
                 if (ModelState.IsValid)
                 {
-                    UserServices userServices = new UserServices
+                    AccountServices accountServices = new AccountServices
                     {
                         objUser = usrSession.UserLog(userId)._userInfo
                     };
-                    var res = userServices.Add(request);
-                    userModelOutput.IsSuccess = true;
-                    userModelOutput.Message = "Success Saving";
-                    userModelOutput.Code = 200;
+                    var res = accountServices.Add(request);
+                    accountModelOutput.IsSuccess = true;
+                    accountModelOutput.Message = "Success Saving";
+                    accountModelOutput.Code = 200;
                 }
                 else
                 {
@@ -122,57 +118,56 @@ namespace simesjid.com.Controllers.User
                     Dictionary<string, object> dict = new Dictionary<string, object>();
                     dict.Add("error", errordetails);
 
-                    userModelOutput.IsSuccess = false;
-                    userModelOutput.Message = "error saving validating";
-                    userModelOutput.Code = 422;
-                    userModelOutput.CustomField = dict;
+                    accountModelOutput.IsSuccess = false;
+                    accountModelOutput.Message = "error saving validating";
+                    accountModelOutput.Code = 422;
+                    accountModelOutput.CustomField = dict;
                 }
-
-
+                   
+              
 
 
             }
             catch (Exception ex)
             {
                 _logger.Error(ex.Message.ToString());
-                userModelOutput.IsSuccess = false;
-                userModelOutput.Message = "Failed Saving" + ex.Message;
-                userModelOutput.Code = 422;
-
+                accountModelOutput.IsSuccess = false;
+                accountModelOutput.Message = "Failed Saving" + ex.Message;
+                accountModelOutput.Code = 422;
+                
 
             }
 
-            return Ok(userModelOutput);
+            return Ok(accountModelOutput);
         }
 
         [HttpPut("{id}")]
         [Authorize]
-        public IActionResult UPdate([FromBody]UserModel request,string id)
+        public IActionResult Update([FromBody]AccountModel request,string id)
         {
             UserSessionManager usrSession = new UserSessionManager();
             var user = User as ClaimsPrincipal;
             string userId = user.Claims.Where(c => c.Type == "USERID").Select(c => c.Value).SingleOrDefault();
-            UserModelOutput userModelOutput = new UserModelOutput();
+            AccountModelOutput accountModelOutput = new AccountModelOutput();
             try
             {
-                _logger.Information("Update User");
-                DisplayUser displayUser = new DisplayUser();
-                var query = new List<UserModel>((List<UserModel>)displayUser.DisplayAll()).AsQueryable();
-               
+                _logger.Information("Saving Update Account");
                 if (ModelState.IsValid)
                 {
-                    UserServices userServices = new UserServices
+                    AccountServices accountServices = new AccountServices
                     {
                         objUser = usrSession.UserLog(userId)._userInfo
+                        
                     };
-                    var res = userServices.Update(request,id);
-                    userModelOutput.IsSuccess = true;
-                    userModelOutput.Message = "Success Update";
-                    userModelOutput.Code = 200;
+                  
+                    var res = accountServices.Update(request,id);
+                    accountModelOutput.IsSuccess = true;
+                    accountModelOutput.Message = "Success Upate";
+                    accountModelOutput.Code = 200;
                 }
                 else
                 {
-                    _logger.Error("Error Post Account");
+                    _logger.Error("ErrorUpdate Account");
 
 
                     string errordetails = "";
@@ -189,10 +184,10 @@ namespace simesjid.com.Controllers.User
                     Dictionary<string, object> dict = new Dictionary<string, object>();
                     dict.Add("error", errordetails);
 
-                    userModelOutput.IsSuccess = false;
-                    userModelOutput.Message = "error Update validating";
-                    userModelOutput.Code = 422;
-                    userModelOutput.CustomField = dict;
+                    accountModelOutput.IsSuccess = false;
+                    accountModelOutput.Message = "error Update Account validating";
+                    accountModelOutput.Code = 422;
+                    accountModelOutput.CustomField = dict;
                 }
 
 
@@ -202,17 +197,18 @@ namespace simesjid.com.Controllers.User
             catch (Exception ex)
             {
                 _logger.Error(ex.Message.ToString());
-                userModelOutput.IsSuccess = false;
-                userModelOutput.Message = "Failed Update" + ex.Message;
-                userModelOutput.Code = 422;
+                accountModelOutput.IsSuccess = false;
+                accountModelOutput.Message = "Failed Update Account" + ex.Message;
+                accountModelOutput.Code = 422;
 
 
             }
 
-            return Ok(userModelOutput);
+            return Ok(accountModelOutput);
         }
+
         #region " Links "
-        private List<LinkInfo> GetLinks(PagedList<UserModel> list, string routename)
+        private List<LinkInfo> GetLinks(PagedList<AccountModel> list,string routename)
         {
             var links = new List<LinkInfo>();
             if (list.HasPreviousPage)
@@ -228,10 +224,11 @@ namespace simesjid.com.Controllers.User
 
         private LinkInfo LinkUrl(string routeName, int pageNumber, int pageSize, string rel, string method)
         {
-
+           
             var link = new LinkInfo
             {
                 Href = this.Url.Link(routeName, new { PageNumber = pageNumber, PageSize = pageSize }),
+                //Href = urlHelper.Link(routeName, new { PageNumber = pageNumber, PageSize = pageSize }),
                 Rel = rel,
                 Method = method
             };
@@ -243,11 +240,18 @@ namespace simesjid.com.Controllers.User
 
         #region " Mappings "
 
-        private UserModel ToUserInfo(UserModel model)
+        private AccountModel ToAccountInfo(AccountModel model)
         {
-            return new UserModel
+            return new AccountModel
             {
-                
+                account_id = model.account_id,
+                account_name = model.account_name,
+                account_balance = model.account_balance,
+                account_desc = model.account_desc,
+                account_created = model.account_created,
+                user_name = model.user_name,
+                user_email = model.user_email
+              
             };
         }
 

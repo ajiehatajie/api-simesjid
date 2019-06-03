@@ -11,7 +11,7 @@ using ICN.Security;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace simesjid.com.Controllers.Setting
+namespace simesjid.com.Controllers.Setting.API.V1
 {
     [Route("api/v1/setting")]
     [Authorize]
@@ -143,7 +143,7 @@ namespace simesjid.com.Controllers.Setting
                 setting_id = model.setting_id,
                 setting_address = model.setting_address,
                 setting_mosque_email = model.setting_mosque_email,
-                setting_city = model.setting_city,
+                setting_province = model.setting_province,
                 setting_countries = model.setting_countries,
                 setting_geolocation = model.setting_geolocation,
                 setting_phone = model.setting_phone

@@ -4,9 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
-namespace simesjid.com.Controllers.Report
+namespace simesjid.com.Controllers.Account.API.V1
 {
-    public class ReportController : Controller
+    public class DetailAccountController : Controller
     {
         public IActionResult Index()
         {
