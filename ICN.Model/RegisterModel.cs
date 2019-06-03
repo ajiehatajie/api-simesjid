@@ -28,6 +28,8 @@ namespace ICN.Model
        
         public string user_confirmpassword  { get; set; }
 
+       
+
         [Required]
         [StringLength(100, ErrorMessage = "{0} length must be between {2} and {1}.", MinimumLength = 5)]
         public string mosque_name { get; set; }

@@ -199,7 +199,7 @@ INNER JOIN mst_users b ON a.account_userid=b.user_id where account_userid = ?use
     <value>update mst_pictures set picture_filename=?name,picture_path=?path where picture_id = ?id  and picture_created_by =?userid</value>
   </data>
   <data name="RegisterNew" xml:space="preserve">
-    <value>insert into mst_users (user_id,user_name,user_email,user_password) values (?id,?name,?email,?password)</value>
+    <value>insert into mst_users (user_id,user_name,user_email,user_password,user_role) values (?id,?name,?email,?password,'admin')</value>
   </data>
   <data name="RegisterNewSetting" xml:space="preserve">
     <value>INSERT INTO 
@@ -280,13 +280,14 @@ VALUES (?id,?userid,?job,?parent,?setting,?created_by)</value>
     <value>delete from mst_categories where category_id = ?id and category_userid =?userid</value>
   </data>
   <data name="CategoryNew" xml:space="preserve">
-    <value>insert into mst_categories (category_id,category_name,category_desc,category_type,category_color,category_userid) values (?id,?name,?desc,?type,?color,?user)</value>
+    <value>INSERT INTO mst_categories (category_id,category_name,category_desc,category_userid,category_color,category_parentid,category_settingid)
+VALUES (?id,?NAME,?DESC,?userid,?color,?parent,?settingid)</value>
   </data>
   <data name="CategoryUpdate" xml:space="preserve">
     <value>update from mst_categories set category_name=?name,category_desc=?desc,category_type=?type where account_id = ?id  and category_userid =?userid</value>
   </data>
   <data name="SubCategoryAdd" xml:space="preserve">
-    <value>insert into mst_categories (category_id,category_name,category_desc,category_type,category_color,category_parentid,category_userid) values (?id,?name,?desc,?type,?color,?parent,?user)</value>
+    <value>insert into mst_categories (category_id,category_name,category_desc,category_color,category_parentid,category_userid) values (?id,?name,?desc,?color,?parent,?user)</value>
   </data>
   <data name="TreeDeleteById" xml:space="preserve">
     <value>DELETE FROM mst_tree WHERE tree_id=?id and tree_settingid=?settingid</value>
@@ -320,5 +321,8 @@ VALUES (?id,?userid,?job,?parent,?setting,?created_by)</value>
   </data>
   <data name="PostalCodeFilter" xml:space="preserve">
     <value>SELECT * FROM mst_postal WHERE province LIKE CONCAT('%',?province,'%') AND kabupaten LIKE CONCAT('%',?kabupaten,'%') AND kecamatan LIKE CONCAT('%',?kecamatan,'%')</value>
+  </data>
+  <data name="CategoryParent" xml:space="preserve">
+    <value>SELECT * FROM mst_categories WHERE category_parentid IS NULL ORDER BY category_name ASC</value>
   </data>
 </root>

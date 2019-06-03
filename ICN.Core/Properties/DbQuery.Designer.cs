@@ -134,11 +134,21 @@ namespace ICN.Core.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to insert into mst_categories (category_id,category_name,category_desc,category_type,category_color,category_userid) values (?id,?name,?desc,?type,?color,?user).
+        ///   Looks up a localized string similar to INSERT INTO mst_categories (category_id,category_name,category_desc,category_userid,category_color,category_parentid,category_settingid)
+        ///VALUES (?id,?NAME,?DESC,?userid,?color,?parent,?settingid).
         /// </summary>
         internal static string CategoryNew {
             get {
                 return ResourceManager.GetString("CategoryNew", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SELECT * FROM mst_categories WHERE category_parentid IS NULL ORDER BY category_name ASC.
+        /// </summary>
+        internal static string CategoryParent {
+            get {
+                return ResourceManager.GetString("CategoryParent", resourceCulture);
             }
         }
         
@@ -306,7 +316,7 @@ namespace ICN.Core.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to insert into mst_users (user_id,user_name,user_email,user_password) values (?id,?name,?email,?password).
+        ///   Looks up a localized string similar to insert into mst_users (user_id,user_name,user_email,user_password,user_role) values (?id,?name,?email,?password,&apos;admin&apos;).
         /// </summary>
         internal static string RegisterNew {
             get {
@@ -401,7 +411,7 @@ namespace ICN.Core.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to insert into mst_categories (category_id,category_name,category_desc,category_type,category_color,category_parentid,category_userid) values (?id,?name,?desc,?type,?color,?parent,?user).
+        ///   Looks up a localized string similar to insert into mst_categories (category_id,category_name,category_desc,category_color,category_parentid,category_userid) values (?id,?name,?desc,?color,?parent,?user).
         /// </summary>
         internal static string SubCategoryAdd {
             get {

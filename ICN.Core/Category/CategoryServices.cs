@@ -30,7 +30,7 @@ namespace ICN.Core.Category
                     var guid = Guid.NewGuid().ToString();
                     return await x.ExecuteAsync(DbQuery.CategoryNew, new {
                         id = guid, name = data.category_name, desc = data.category_desc,
-                        type = data.category_type, color= data.category_color, user = objUser.user_id });
+                        color= data.category_color, user = objUser.user_id });
 
                 }
             }
@@ -68,7 +68,7 @@ namespace ICN.Core.Category
                 {
 
 
-                    return await x.ExecuteAsync(DbQuery.CategoryUpdate, new { id = id,name = data.category_name,type = data.category_type, categor_userid = objUser.user_id });
+                    return await x.ExecuteAsync(DbQuery.CategoryUpdate, new { id = id,name = data.category_name, categor_userid = objUser.user_id });
 
                     
 
@@ -89,7 +89,7 @@ namespace ICN.Core.Category
                     var guid = Guid.NewGuid().ToString();
                     return await x.ExecuteAsync(DbQuery.SubCategoryAdd, new { id = guid,
                         name = data.category_name,
-                        desc = data.category_desc, type = data.category_type,
+                        desc = data.category_desc, 
                         color = data.category_color,parent=data.category_parentid, user = objUser.user_id });
 
                 }
@@ -111,7 +111,7 @@ namespace ICN.Core.Category
          
             if (pagingParams.Term.ToUpper()  == "TYPE")
             {
-                 filter = query.Where(p => p.category_type.StartsWith(pagingParams.Query ?? string.Empty, StringComparison.InvariantCultureIgnoreCase));
+                 filter = query.Where(p => p.category_name.StartsWith(pagingParams.Query ?? string.Empty, StringComparison.InvariantCultureIgnoreCase));
             }
             else
             {
@@ -142,6 +142,21 @@ namespace ICN.Core.Category
 
             }
 
+            return new PagedList<CategoryModel>(filter, pagingParams.PageNumber, pagingParams.PageSize);
+
+        }
+        #endregion
+
+        #region "sub categories"
+        public PagedList<CategoryModel> GetAllCategoryParent(PagingParams pagingParams)
+        {
+            DisplayCategory category = new DisplayCategory();
+            category.objUser = this.objUser;
+            var query = new List<CategoryModel>((List<CategoryModel>)category.DisplayCategoryParent()).AsQueryable();
+            IQueryable<CategoryModel> filter;
+
+            filter = query.Where(p => p.category_name.StartsWith(pagingParams.Query ?? string.Empty, StringComparison.InvariantCultureIgnoreCase));
+           
             return new PagedList<CategoryModel>(filter, pagingParams.PageNumber, pagingParams.PageSize);
 
         }

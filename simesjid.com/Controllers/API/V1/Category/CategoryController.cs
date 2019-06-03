@@ -42,7 +42,7 @@ namespace simesjid.com.Controllers.Category.API.V1
                     objUser = usrSession.UserLog(userId)._userInfo
                 };
             
-                objResponse = categoryServices.GetAll(pagingParams);
+                objResponse = categoryServices.GetAllCategoryParent(pagingParams);
                 
                 Response.Headers.Add("X-Pagination", objResponse.GetHeader().ToJson());
 

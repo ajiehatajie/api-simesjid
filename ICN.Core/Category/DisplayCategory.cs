@@ -52,6 +52,26 @@ namespace ICN.Core.Category
             }
         }
 
+        public object DisplayCategoryParent()
+        {
+            try
+            {
+                using (var Cn = OpenDB())
+                {
+                    return Cn.Query<CategoryModel>(DbQuery.CategoryParent, new { userId = objUser.user_id }).ToList();
+
+                }
+            }
+            catch (DatabaseException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         public object Search(string strSearch)
         {
             try
