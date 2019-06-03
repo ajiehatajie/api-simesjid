@@ -119,7 +119,7 @@ namespace ICN.Core.Postal
                 using (var Cn = OpenDB())
                 {
 
-                    return Cn.Query<PostalModel>(DbQuery.PostalCodeSearch, new {  cari = strSearch }).ToList();
+                    return Cn.Query<PostalModel>(DbQuery.PostalCodeFilter, new {  cari = strSearch }).ToList();
 
 
                 }
@@ -138,7 +138,10 @@ namespace ICN.Core.Postal
                 using (var Cn = OpenDB())
                 {
 
-                    return Cn.Query<PostalModel>(DbQuery.PostalCodeSearch, new { province = province,kabupaten = kabupaten,kecamatan = kecamatan }).ToList();
+                    return Cn.Query<PostalModel>(DbQuery.PostalCodeFilter, new { province = province,
+                        kabupaten = kabupaten,
+                        kecamatan = kecamatan
+                    }).ToList();
 
 
                 }

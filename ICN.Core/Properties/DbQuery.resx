@@ -318,7 +318,7 @@ VALUES (?id,?userid,?job,?parent,?setting,?created_by)</value>
   <data name="MosqueCategoryAll" xml:space="preserve">
     <value>SELECT * FROM mst_category_mosque ORDER BY category_name ASC</value>
   </data>
-  <data name="PostalCodeSearch" xml:space="preserve">
-    <value>SELECT * FROM mst_postal WHERE province=?province AND kabupaten=?kabupaten AND kecamatan=?kecamatan</value>
+  <data name="PostalCodeFilter" xml:space="preserve">
+    <value>SELECT * FROM mst_postal WHERE province LIKE CONCAT('%',?province,'%') AND kabupaten LIKE CONCAT('%',?kabupaten,'%') AND kecamatan LIKE CONCAT('%',?kecamatan,'%')</value>
   </data>
 </root>

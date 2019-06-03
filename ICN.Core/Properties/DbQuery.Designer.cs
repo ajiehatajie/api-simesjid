@@ -297,11 +297,11 @@ namespace ICN.Core.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to SELECT * FROM mst_postal WHERE province=?province AND kabupaten=?kabupaten AND kecamatan=?kecamatan.
+        ///   Looks up a localized string similar to SELECT * FROM mst_postal WHERE province LIKE CONCAT(&apos;%&apos;,?province,&apos;%&apos;) AND kabupaten LIKE CONCAT(&apos;%&apos;,?kabupaten,&apos;%&apos;) AND kecamatan LIKE CONCAT(&apos;%&apos;,?kecamatan,&apos;%&apos;).
         /// </summary>
-        internal static string PostalCodeSearch {
+        internal static string PostalCodeFilter {
             get {
-                return ResourceManager.GetString("PostalCodeSearch", resourceCulture);
+                return ResourceManager.GetString("PostalCodeFilter", resourceCulture);
             }
         }
         

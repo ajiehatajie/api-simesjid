@@ -98,10 +98,9 @@ namespace simesjid.com.Controllers.API.OPEN.Postal
         {
             return new PostalModel
             {
-                kabupaten = model.kabupaten,
-                kecamatan = model.kecamatan,
-                kelurahan = model.kelurahan,
-                postal_id = model.postal_id
+               
+                kelurahan = model.kelurahan
+               
 
             };
         }

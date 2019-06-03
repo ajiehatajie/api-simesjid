@@ -33,7 +33,37 @@ namespace ICN.Core.Postal
 
         public PagedList<PostalModel> GetAll(PagingParams pagingParams)
         {
-            throw new NotImplementedException();
+            DisplayPostal displayPostal = new DisplayPostal();
+
+           
+            IQueryable<PostalModel> filter;
+
+            if (pagingParams.Term.ToUpper() == "PROVINCE")
+            {
+                var query = new List<PostalModel>((List<PostalModel>)displayPostal.DisplayProvince()).AsQueryable();
+                filter = query.Where(p => p.province.StartsWith(pagingParams.Query ?? string.Empty, StringComparison.InvariantCultureIgnoreCase));
+               
+            }
+            else if(pagingParams.Term.ToUpper() == "KABUPATEN")
+            {
+                var query = new List<PostalModel>((List<PostalModel>)displayPostal.DisplayKabupaten()).AsQueryable();
+                filter = query.Where(p => p.kabupaten.StartsWith(pagingParams.Query ?? string.Empty, StringComparison.InvariantCultureIgnoreCase));
+               
+            }
+            else if (pagingParams.Term.ToUpper() == "KELURAHAN")
+            {
+                 var query = new List<PostalModel>((List<PostalModel>)displayPostal.DisplayKelurahan()).AsQueryable();
+                 filter = query.Where(p => p.kelurahan.StartsWith(pagingParams.Query ?? string.Empty, StringComparison.InvariantCultureIgnoreCase));
+               
+            }
+            else
+            {
+                var query = new List<PostalModel>((List<PostalModel>)displayPostal.DisplayProvince()).AsQueryable();
+                filter = query.Where(p => p.province.StartsWith(pagingParams.Query ?? string.Empty, StringComparison.InvariantCultureIgnoreCase));
+            }
+
+             return new PagedList<PostalModel>(filter, pagingParams.PageNumber, pagingParams.PageSize);
+
         }
 
         public PagedList<PostalModel> GetAllProvince(PagingParams pagingParams)
@@ -68,6 +98,14 @@ namespace ICN.Core.Postal
             DisplayPostal displayPostal = new DisplayPostal();
 
             var query = new List<PostalModel>((List<PostalModel>)displayPostal.DisplayKelurahan()).AsQueryable();
+            var filter = query.Where(p => p.kelurahan.StartsWith(pagingParams.Query ?? String.Empty, StringComparison.InvariantCultureIgnoreCase));
+            return new PagedList<PostalModel>(filter, pagingParams.PageNumber, pagingParams.PageSize);
+        }
+
+        public PagedList<PostalModel> GetFilterThreeParam(PagingParams pagingParams,string province,string kabupaten, string kelurahan)
+        {
+            DisplayPostal displayPostal = new DisplayPostal();
+            var query = new List<PostalModel>((List<PostalModel>)displayPostal.SearchPostalCode(province, kabupaten, kelurahan)).AsQueryable();
             var filter = query.Where(p => p.kelurahan.StartsWith(pagingParams.Query ?? String.Empty, StringComparison.InvariantCultureIgnoreCase));
             return new PagedList<PostalModel>(filter, pagingParams.PageNumber, pagingParams.PageSize);
         }

@@ -6,6 +6,7 @@ using ICN.Core.Income;
 using ICN.Core.Register;
 using ICN.Core.Roles;
 using ICN.Core.Setting;
+using ICN.Core.Tipologi;
 using ICN.Core.Tree;
 using ICN.Core.User;
 using ICN.Interface;
@@ -28,6 +29,7 @@ namespace ICN.Core
             builder.RegisterType<UserServices>().As<IBusiness<UserModel>>().InstancePerLifetimeScope();
             builder.RegisterType<TreeServices>().As<IBusiness<TreeModel>>().InstancePerLifetimeScope();
             builder.RegisterType<RolesServices>().As<IBusiness<RoleModel>>().InstancePerLifetimeScope();
+            builder.RegisterType<TipologiServices>().As<IBusiness<MosqueCategoryModel>>().InstancePerLifetimeScope();
         }
     }
 }

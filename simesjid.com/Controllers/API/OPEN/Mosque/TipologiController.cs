@@ -2,43 +2,42 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using ICN.Core.Postal;
+using ICN.Core.Tipologi;
 using ICN.Interface;
 using ICN.Model;
 using ICN.Paging;
 using Microsoft.AspNetCore.Mvc;
 
-namespace simesjid.com.Controllers.API.OPEN.Postal
+namespace simesjid.com.Controllers.API.OPEN.Mosque
 {
-    [Route("api/kecamatan")]
-    public class KecamatanController : Controller
+    [Route("api/tipologi")]
+    public class TipologiController : Controller
     {
         private ILoggerManager _logger;
-        private PagedList<PostalModel> objResponse;
+        private PagedList<MosqueCategoryModel> objResponse;
 
-        public KecamatanController(ILoggerManager logger)
+        public TipologiController(ILoggerManager logger)
         {
 
             _logger = logger;
         }
 
-        [HttpGet(Name = "GetOpenKecamatan")]
+
+        [HttpGet(Name = "GetOpenTipologi")]
         public IActionResult Index(PagingParams pagingParams)
         {
             try
             {
-
-
-                PostalServices PostalServices = new PostalServices();
-                objResponse = PostalServices.GetAllKecamatan(pagingParams);
+                TipologiServices tipologiServices = new TipologiServices();
+                objResponse = tipologiServices.GetAll(pagingParams);
                 Response.Headers.Add("X-Pagination", objResponse.GetHeader().ToJson());
-                var response = new PostalModelOutput
+                var response = new MosqueCategoryModelOutput
                 {
                     IsSuccess = true,
                     Code = 200,
                     Message = "Success",
-                    Data = objResponse.List.Select(m => ToPostalInfo(m)).ToList(),
-                    Pagination = GetLinks(objResponse, "GetOpenKecamatan")
+                    Data = objResponse.List.Select(m => TipologiInfo(m)).ToList(),
+                    Pagination = GetLinks(objResponse, "GetOpenTipologi")
 
                 };
                 return Ok(response);
@@ -48,7 +47,7 @@ namespace simesjid.com.Controllers.API.OPEN.Postal
             catch (Exception ex)
             {
                 _logger.Error(ex.Message.ToString());
-                var response = new PostalModelOutput
+                var response = new MosqueCategoryModelOutput
                 {
                     IsSuccess = false,
                     Code = 422,
@@ -61,9 +60,8 @@ namespace simesjid.com.Controllers.API.OPEN.Postal
 
         }
 
-
         #region " Links "
-        private List<LinkInfo> GetLinks(PagedList<PostalModel> list, string routename)
+        private List<LinkInfo> GetLinks(PagedList<MosqueCategoryModel> list, string routename)
         {
             var links = new List<LinkInfo>();
             if (list.HasPreviousPage)
@@ -94,13 +92,13 @@ namespace simesjid.com.Controllers.API.OPEN.Postal
 
         #region " Mappings "
 
-        private PostalModel ToPostalInfo(PostalModel model)
+        private MosqueCategoryModel TipologiInfo(MosqueCategoryModel model)
         {
-            return new PostalModel
+            return new MosqueCategoryModel
             {
-                
-                kecamatan = model.kecamatan
-              
+               category_id = model.category_id,
+               category_name = model.category_name,
+               category_type = model.category_type
 
             };
         }
