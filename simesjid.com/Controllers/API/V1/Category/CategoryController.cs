@@ -77,7 +77,7 @@ namespace simesjid.com.Controllers.Category.API.V1
 
         // post api/v1/category?
         [HttpPost(Name = "PostCategory")]
-        [Authorize(Roles = "Expense Category,Income Category")]
+        [Authorize(Roles = "Kategori Pemasukan,Kategori Pengeluaran")]
         public IActionResult Store([FromBody] CategoryModel model)
         {
             CategoryModelOutput categoryModel = new CategoryModelOutput();
@@ -142,7 +142,7 @@ namespace simesjid.com.Controllers.Category.API.V1
         }
 
         [HttpPut("{id}")]
-        [Authorize(Roles = "Expense Category,Income Category")]
+        [Authorize(Roles = "Kategori Pemasukan,Kategori Pengeluaran")]
         public IActionResult Update([FromBody] CategoryModel model,string id)
         {
             CategoryModelOutput categoryModel = new CategoryModelOutput();
@@ -315,6 +315,7 @@ namespace simesjid.com.Controllers.Category.API.V1
          */
         // DELETE api/v1/category/5
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Kategori Pemasukan,Kategori Pengeluaran")]
         public IActionResult Delete(string id)
         {
             CategoryModelOutput categoryModel = new CategoryModelOutput();

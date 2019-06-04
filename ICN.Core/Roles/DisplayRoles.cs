@@ -18,7 +18,18 @@ namespace ICN.Core.Roles
 
         public object Display()
         {
-            throw new NotImplementedException();
+            try
+            {
+                using (var Cn = OpenDB())
+                {
+                    return Cn.Query<RoleModel>(DbQuery.RoleGetAll).ToList();
+
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public object Search(string strSearch)
@@ -27,7 +38,7 @@ namespace ICN.Core.Roles
             {
                 using (var Cn = OpenDB())
                 {
-                    return Cn.Query<RoleModelOutput>(DbQuery.RoleUserSearchById, new { role_userid = objUser.user_id, cari = strSearch }).ToList();
+                    return Cn.Query<RoleModel>(DbQuery.RoleUserSearchById, new { userid = objUser.user_id, cari = strSearch }).ToList();
 
                 }
             }

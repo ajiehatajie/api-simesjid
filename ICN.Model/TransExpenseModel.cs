@@ -10,7 +10,7 @@ namespace ICN.Model
 {
     public class TransExpenseModel
     {
-        [Required]
+       
         public string expense_id { get; set; }
 
 

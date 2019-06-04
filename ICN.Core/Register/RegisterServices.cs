@@ -2,6 +2,7 @@
 using ICN.Base;
 using ICN.Core.Account;
 using ICN.Core.Properties;
+using ICN.Generic;
 using ICN.Interface;
 using ICN.Model;
 using ICN.Paging;
@@ -23,7 +24,7 @@ namespace ICN.Core.Register
                 
                 using (var x = OpenDB())
                 {
-                    
+                    string SettingID = GlobalFunction.RandomIDSetting();
                     var guid = Guid.NewGuid().ToString();
                     var hashedPassword = BCrypt.Net.BCrypt.HashPassword(data.user_password);
                     x.Open();
@@ -36,14 +37,32 @@ namespace ICN.Core.Register
                             id = guid,
                             name = data.user_name,
                             email = data.user_email,
-                            password = hashedPassword
+                            password = hashedPassword,settingid = SettingID
                         });
 
 
                         await x.ExecuteAsync(DbQuery.RegisterNewSetting, new {
-                            id = guid, name = data.mosque_name, userid = guid, type = data.mosque_type
+                            id = SettingID, name = data.mosque_name, userid = guid, type = data.mosque_type
                         });
 
+                        #region "CREATE AKUN"
+                        var AccountStandard = new List<string>() { "CASH", "NON CASH" };
+
+                        foreach (var itemAccount in AccountStandard)
+                        {
+                            var guidAccount = Guid.NewGuid().ToString();
+                            await x.ExecuteAsync(DbQuery.AccountNew, new
+                            {
+                                id = Guid.NewGuid().ToString(),
+                                name = itemAccount,
+                                balance = 0,
+                                desc = "AKUN TRANSANSI " + itemAccount,
+                                user = guid,
+                                settingid = SettingID
+
+                            });
+                        }
+                        #endregion
 
                         //await CreateCategory(guid, guid);
                         #region "CREATE CATEGORY"
@@ -77,7 +96,7 @@ namespace ICN.Core.Register
                                         desc = "SUMBER DARI " + item,
                                         userid = guid,
                                         color = color,
-                                        settingid = guid,
+                                        settingid = SettingID,
                                         parent = parentRoot
 
                                     });
@@ -92,11 +111,11 @@ namespace ICN.Core.Register
                                         {
                                             id = Guid.NewGuid().ToString(),
                                             name = item,
-                                            desc = "SUMBER DARI " + itemSub,
+                                            desc = itemSub,
                                             userid = guid,
                                             color = color,
                                             parent = guidCategory,
-                                            settingid = guid
+                                            settingid = SettingID
 
                                         });
                                     }
@@ -114,7 +133,7 @@ namespace ICN.Core.Register
                                         desc = "SUMBER DARI " + item,
                                         userid = guid,
                                         color = color,
-                                        settingid = guid
+                                        settingid = SettingID
 
                                     });
                                     var SubCategoryZakatStandard = new List<string>()
@@ -128,11 +147,11 @@ namespace ICN.Core.Register
                                             id = Guid.NewGuid().ToString(),
                                             name = item,
 
-                                            desc = "SUMBER DARI " + itemSub,
+                                            desc =  itemSub,
                                             userid = guid,
                                             color = color,
                                             parent = guidCategory,
-                                            settingid = guid
+                                            settingid = SettingID
 
                                         });
                                     }
@@ -149,7 +168,7 @@ namespace ICN.Core.Register
                                         desc = "SUMBER DARI " + item,
                                         userid = guid,
                                         color = color,
-                                        settingid = guid
+                                        settingid = SettingID
 
                                     });
                                     var SubCategoryHonorStandard = new List<string>()
@@ -163,11 +182,11 @@ namespace ICN.Core.Register
                                             id = Guid.NewGuid().ToString(),
                                             name = item,
 
-                                            desc = "SUMBER DARI " + itemSub,
+                                            desc = itemSub,
                                             userid = guid,
                                             color = color,
                                             parent = guidCategory,
-                                            settingid = guid
+                                            settingid = SettingID
 
                                         });
                                     }
@@ -184,7 +203,7 @@ namespace ICN.Core.Register
                                         desc = "SUMBER DARI " + item,
                                         userid = guid,
                                         color = color,
-                                        settingid = guid
+                                        settingid = SettingID
 
                                     });
                                     var SubCategoryOperasionalStandard = new List<string>()
@@ -198,11 +217,11 @@ namespace ICN.Core.Register
                                             id = Guid.NewGuid().ToString(),
                                             name = item,
 
-                                            desc = "SUMBER DARI " + itemSub,
+                                            desc = itemSub,
                                             userid = guid,
                                             color = color,
                                             parent = guidCategory,
-                                            settingid = guid
+                                            settingid = SettingID
 
                                         });
                                     }
@@ -219,7 +238,7 @@ namespace ICN.Core.Register
                                         desc = "SUMBER DARI " + item,
                                         userid = guid,
                                         color = color,
-                                        settingid = guid
+                                        settingid = SettingID
 
                                     });
                                     var SubCategoryPERALATANStandard = new List<string>()
@@ -233,11 +252,11 @@ namespace ICN.Core.Register
                                             id = Guid.NewGuid().ToString(),
                                             name = item,
 
-                                            desc = "SUMBER DARI " + itemSub,
+                                            desc = itemSub,
                                             userid = guid,
                                             color = color,
                                             parent = guidCategory,
-                                            settingid = guid
+                                            settingid = SettingID
 
                                         });
                                     }
@@ -254,7 +273,7 @@ namespace ICN.Core.Register
                                         desc = "SUMBER DARI " + item,
                                         userid = guid,
                                         color = color,
-                                        settingid = guid
+                                        settingid = SettingID
 
                                     });
                                     var SubCategoryPERLENGKAPANStandard = new List<string>()
@@ -268,11 +287,11 @@ namespace ICN.Core.Register
                                             id = Guid.NewGuid().ToString(),
                                             name = item,
 
-                                            desc = "SUMBER DARI " + itemSub,
+                                            desc =  itemSub,
                                             userid = guid,
                                             color = color,
                                             parent = guidCategory,
-                                            settingid = guid
+                                            settingid = SettingID
 
                                         });
                                     }
@@ -289,7 +308,7 @@ namespace ICN.Core.Register
                                         desc = "SUMBER DARI " + item,
                                         userid = guid,
                                         color = color,
-                                        settingid = guid
+                                        settingid = SettingID
 
                                     });
                                     var SubCategoryHutangStandard = new List<string>()
@@ -302,11 +321,11 @@ namespace ICN.Core.Register
                                         {
                                             id = Guid.NewGuid().ToString(),
                                             name = item,
-                                            desc = "SUMBER DARI " + itemSub,
+                                            desc =  itemSub,
                                             userid = guid,
                                             color = color,
                                             parent = guidCategory,
-                                            settingid = guid
+                                            settingid = SettingID
 
                                         });
                                     }

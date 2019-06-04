@@ -127,7 +127,7 @@ INNER JOIN mst_users b ON a.account_userid=b.user_id where account_userid = ?use
     <comment>Get All Account</comment>
   </data>
   <data name="AccountNew" xml:space="preserve">
-    <value>insert into mst_accounts (account_id,account_name,account_balance,account_desc,account_userid) values (?id,?name,?balance,?desc,?user)</value>
+    <value>insert into mst_accounts (account_id,account_name,account_balance,account_desc,account_userid,account_settingid) values (?id,?name,?balance,?desc,?user,?settingid)</value>
     <comment>Post New Account</comment>
   </data>
   <data name="AccountSearchByName" xml:space="preserve">
@@ -199,7 +199,7 @@ INNER JOIN mst_users b ON a.account_userid=b.user_id where account_userid = ?use
     <value>update mst_pictures set picture_filename=?name,picture_path=?path where picture_id = ?id  and picture_created_by =?userid</value>
   </data>
   <data name="RegisterNew" xml:space="preserve">
-    <value>insert into mst_users (user_id,user_name,user_email,user_password,user_role) values (?id,?name,?email,?password,'admin')</value>
+    <value>insert into mst_users (user_id,user_name,user_email,user_password,user_role,user_settingid) values (?id,?name,?email,?password,'admin',?settingid)</value>
   </data>
   <data name="RegisterNewSetting" xml:space="preserve">
     <value>INSERT INTO 
@@ -211,7 +211,9 @@ INNER JOIN mst_users b ON a.account_userid=b.user_id where account_userid = ?use
 SELECT role_id,?userid FROM mst_roles</value>
   </data>
   <data name="RoleUserSearchById" xml:space="preserve">
-    <value>SELECT * FROM vi_role_users where role_userid=?role_userid order by role_name asc</value>
+    <value>SELECT * FROM vi_roles_user WHERE user_id=?userid
+UNION  
+SELECT * FROM vi_roles_user</value>
   </data>
   <data name="SettingDelete" xml:space="preserve">
     <value>delete from mst_settings where setting_id = ?id and setting_created_by =?userid</value>
@@ -255,7 +257,7 @@ setting_currency=?currency,setting_languange=?languange,setting_logo=?logo WHERE
     <value>select * from mst_users</value>
   </data>
   <data name="UserNew" xml:space="preserve">
-    <value>insert into mst_users (user_id,user_name,user_email,user_password,user_lastname,user_parentid) values (?id,?name,?email,?password,?lastname,?parent)</value>
+    <value>insert into mst_users (user_id,user_name,user_email,user_password,user_lastname,user_parentid,user_settingid) values (?id,?name,?email,?password,?lastname,?parent,?settingid)</value>
   </data>
   <data name="UserSearchByName" xml:space="preserve">
     <value>select * from mst_users where user_id = ? userId and user_name LIKE CONCAT('%',?cari,'%') order by user_name asc</value>
@@ -324,5 +326,22 @@ VALUES (?id,?NAME,?DESC,?userid,?color,?parent,?settingid)</value>
   </data>
   <data name="CategoryParent" xml:space="preserve">
     <value>SELECT * FROM mst_categories WHERE category_parentid IS NULL ORDER BY category_name ASC</value>
+  </data>
+  <data name="RoleGetAll" xml:space="preserve">
+    <value>SELECT * FROM mst_roles ORDER BY role_name ASC</value>
+  </data>
+  <data name="RolesDeleteByUseridAndRoleID" xml:space="preserve">
+    <value>DELETE FROM mst_access WHERE access_roleid=?item AND access_userid=?userid</value>
+  </data>
+  <data name="RolesNewByUser" xml:space="preserve">
+    <value>INSERT INTO mst_access (access_roleid,access_userid) VALUES (?roleid,?userid);</value>
+  </data>
+  <data name="RolesDeleteByUser" xml:space="preserve">
+    <value>DELETE FROM mst_access  WHERE access_userid=?userid;</value>
+  </data>
+  <data name="RoleNewUserFromAdmin" xml:space="preserve">
+    <value>INSERT INTO mst_access (access_roleid,access_userid)
+SELECT role_id,?userid FROM mst_roles
+WHERE role_id NOT IN (1,4,8,9,16,17)</value>
   </data>
 </root>

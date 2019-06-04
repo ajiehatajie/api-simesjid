@@ -42,6 +42,8 @@ namespace ICN.Model
 
         public DateTime user_created { get; set; }
 
+        public string user_settingid { get; set; } //alias untuk id mesjid
+
         public string setting_id { get; set; }
     }
 

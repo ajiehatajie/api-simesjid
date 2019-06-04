@@ -80,7 +80,7 @@ namespace ICN.Core.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to insert into mst_accounts (account_id,account_name,account_balance,account_desc,account_userid) values (?id,?name,?balance,?desc,?user).
+        ///   Looks up a localized string similar to insert into mst_accounts (account_id,account_name,account_balance,account_desc,account_userid,account_settingid) values (?id,?name,?balance,?desc,?user,?settingid).
         /// </summary>
         internal static string AccountNew {
             get {
@@ -316,7 +316,7 @@ namespace ICN.Core.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to insert into mst_users (user_id,user_name,user_email,user_password,user_role) values (?id,?name,?email,?password,&apos;admin&apos;).
+        ///   Looks up a localized string similar to insert into mst_users (user_id,user_name,user_email,user_password,user_role,user_settingid) values (?id,?name,?email,?password,&apos;admin&apos;,?settingid).
         /// </summary>
         internal static string RegisterNew {
             get {
@@ -336,6 +336,44 @@ namespace ICN.Core.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to SELECT * FROM mst_roles ORDER BY role_name ASC.
+        /// </summary>
+        internal static string RoleGetAll {
+            get {
+                return ResourceManager.GetString("RoleGetAll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to INSERT INTO mst_access (access_roleid,access_userid)
+        ///SELECT role_id,?userid FROM mst_roles
+        ///WHERE role_id NOT IN (1,4,8,9,16,17).
+        /// </summary>
+        internal static string RoleNewUserFromAdmin {
+            get {
+                return ResourceManager.GetString("RoleNewUserFromAdmin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to DELETE FROM mst_access  WHERE access_userid=?userid;.
+        /// </summary>
+        internal static string RolesDeleteByUser {
+            get {
+                return ResourceManager.GetString("RolesDeleteByUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to DELETE FROM mst_access WHERE access_roleid=?item AND access_userid=?userid.
+        /// </summary>
+        internal static string RolesDeleteByUseridAndRoleID {
+            get {
+                return ResourceManager.GetString("RolesDeleteByUseridAndRoleID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to INSERT INTO mst_access (access_roleid,access_userid)
         ///SELECT role_id,?userid FROM mst_roles.
         /// </summary>
@@ -346,7 +384,18 @@ namespace ICN.Core.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to SELECT * FROM vi_role_users where role_userid=?role_userid order by role_name asc.
+        ///   Looks up a localized string similar to INSERT INTO mst_access (access_roleid,access_userid) VALUES (?roleid,?userid);.
+        /// </summary>
+        internal static string RolesNewByUser {
+            get {
+                return ResourceManager.GetString("RolesNewByUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SELECT * FROM vi_roles_user WHERE user_id=?userid
+        ///UNION  
+        ///SELECT * FROM vi_roles_user.
         /// </summary>
         internal static string RoleUserSearchById {
             get {
@@ -502,7 +551,7 @@ namespace ICN.Core.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to insert into mst_users (user_id,user_name,user_email,user_password,user_lastname,user_parentid) values (?id,?name,?email,?password,?lastname,?parent).
+        ///   Looks up a localized string similar to insert into mst_users (user_id,user_name,user_email,user_password,user_lastname,user_parentid,user_settingid) values (?id,?name,?email,?password,?lastname,?parent,?settingid).
         /// </summary>
         internal static string UserNew {
             get {

@@ -17,7 +17,7 @@ namespace simesjid.com.Controllers.Account.API.V1
 {
 
     [Route("api/v1/account")]
-    [Authorize(Roles = "Accounts")]
+    [Authorize(Roles = "Akun")]
     public class AccountController : Controller
     {
       

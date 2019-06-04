@@ -2,6 +2,7 @@
 using ICN.Base;
 using ICN.Core.Account;
 using ICN.Core.Properties;
+using ICN.Generic;
 using ICN.Interface;
 using ICN.Model;
 using ICN.Paging;
@@ -28,8 +29,11 @@ namespace ICN.Core.Category
                 using (var x = OpenDB())
                 {
                     var guid = Guid.NewGuid().ToString();
+                    string SettingID = GlobalFunction.RandomIDSetting();
+
                     return await x.ExecuteAsync(DbQuery.CategoryNew, new {
                         id = guid, name = data.category_name, desc = data.category_desc,
+                        settingid = SettingID,
                         color= data.category_color, user = objUser.user_id });
 
                 }
@@ -87,9 +91,10 @@ namespace ICN.Core.Category
                 using (var x = OpenDB())
                 {
                     var guid = Guid.NewGuid().ToString();
+                    string SettingID = GlobalFunction.RandomIDSetting();
                     return await x.ExecuteAsync(DbQuery.SubCategoryAdd, new { id = guid,
                         name = data.category_name,
-                        desc = data.category_desc, 
+                        desc = data.category_desc, settingid = data.category_settingid,
                         color = data.category_color,parent=data.category_parentid, user = objUser.user_id });
 
                 }

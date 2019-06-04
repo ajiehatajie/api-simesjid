@@ -27,6 +27,8 @@ namespace ICN.Model
 
         public string category_parentid { get; set; }
 
+        [Required]
+        public string category_settingid { get; set; }
         //buat sub category 
         public string parent_id { get; set; }
         public string parent_name { get; set; }

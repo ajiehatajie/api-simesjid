@@ -23,6 +23,9 @@ namespace ICN.Model
 
         public string account_userid { get; set; }
 
+        [Required]
+        public string account_settingid { get; set; }
+
         public DateTime account_created { get; set; }
 
         public string user_name { get; set; }

@@ -30,13 +30,17 @@ namespace ICN.Core.User
                     var guid = Guid.NewGuid().ToString();
                     var hashedPassword = BCrypt.Net.BCrypt.HashPassword(data.user_password);
 
-                    return await x.ExecuteAsync(DbQuery.UserNew, new { id = guid,
+                    var y = await x.ExecuteAsync(DbQuery.UserNew, new { id = guid,
                         name = data.user_name, email = data.user_email,
                         password = hashedPassword, lastname = data.user_lastname,
-                        parent = data.user_parentid    
+                        parent = objUser.user_id,settingid = objUser.user_settingid    
                     });
-                   
+
                     
+                        return await x.ExecuteAsync(DbQuery.RoleNewUserFromAdmin, new { userid = guid });
+                    
+                   
+
 
                 }
             }

@@ -12,7 +12,7 @@ namespace ICN.Model
 
         public string role_name { get; set; }
 
-        public string role_userid { get; set; }
+        public string user_id { get; set; }
     }
 
     public class RoleModelOutput : IResponse<RoleModel>

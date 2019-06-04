@@ -10,7 +10,7 @@ namespace ICN.Model
 {
     public class TransIncomeModel
     {
-        [Required]
+       
         public string income_id { get; set; }
 
         [Required]

@@ -28,7 +28,7 @@ namespace simesjid.com.Controllers.Income.API.V1
         }
 
         [HttpGet(Name = "GetIncome")]
-        [Authorize(Roles = "Income")]
+        [Authorize(Roles = "Pemasukan")]
         public IActionResult Index(PagingParams pagingParams)
         {
             try
@@ -77,7 +77,7 @@ namespace simesjid.com.Controllers.Income.API.V1
         }
 
         [HttpPost(Name = "PostIncome")]
-        [Authorize(Roles = "Transactions")]
+        [Authorize(Roles = "Transaksi,Pemasukan")]
         public IActionResult Store([FromBody] TransIncomeModel model)
         {
             TransIncomeModelOutput _incomeModel = new TransIncomeModelOutput();
@@ -142,7 +142,7 @@ namespace simesjid.com.Controllers.Income.API.V1
         }
 
         [HttpPut("{id}")]
-        [Authorize(Roles = "Transactions")]
+        [Authorize(Roles = "Transaksi,Pemasukan")]
         public IActionResult Update([FromBody] TransIncomeModel model,string id)
         {
             TransIncomeModelOutput _incomeModel = new TransIncomeModelOutput();
@@ -207,7 +207,7 @@ namespace simesjid.com.Controllers.Income.API.V1
         }
         // DELETE api/v1/expense/5
         [HttpDelete("{id}")]
-        [Authorize(Roles = "Transactions")]
+        [Authorize(Roles = "Transaksi,Pemasukan")]
         public IActionResult Delete(string id)
         {
             TransIncomeModelOutput _incomeModel = new TransIncomeModelOutput();

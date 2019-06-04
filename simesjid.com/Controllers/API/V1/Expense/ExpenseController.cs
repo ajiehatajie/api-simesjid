@@ -27,7 +27,7 @@ namespace simesjid.com.Controllers.Expense.API.V1
         }
 
         [HttpGet(Name = "GetExpense")]
-        [Authorize(Roles = "Expense")]
+        [Authorize(Roles = "Pengeluaran,Transaksi")]
         public IActionResult Index(PagingParams pagingParams)
         {
             try
@@ -76,7 +76,7 @@ namespace simesjid.com.Controllers.Expense.API.V1
         }
 
         [HttpPost(Name = "PostExpense")]
-        [Authorize(Roles = "Transactions")]
+        [Authorize(Roles = "Transaksi")]
         public IActionResult Store([FromBody] TransExpenseModel model)
         {
             TransExpenseModelOutput _expenseModel = new TransExpenseModelOutput();
@@ -141,7 +141,7 @@ namespace simesjid.com.Controllers.Expense.API.V1
         }
 
         [HttpPut("{id}")]
-        [Authorize(Roles = "Transactions")]
+        [Authorize(Roles = "Transaksi,Pengeluaran")]
         public IActionResult Update([FromBody] TransExpenseModel model,string id)
 
         {
@@ -208,7 +208,7 @@ namespace simesjid.com.Controllers.Expense.API.V1
         }
         // DELETE api/v1/expense/5
         [HttpDelete("{id}")]
-        [Authorize(Roles = "Transactions")]
+        [Authorize(Roles = "Transaksi,Pengeluaran")]
         public IActionResult Delete(string id)
         {
             TransExpenseModelOutput _expenseModel = new TransExpenseModelOutput();

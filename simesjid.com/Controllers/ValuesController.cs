@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ICN.Core.Account;
+using ICN.Interface;
 using Microsoft.AspNetCore.Mvc;
 
 
@@ -13,12 +14,20 @@ namespace simesjid.com.Controllers
     public class ValuesController : ControllerBase
     {
 
-     
+        private ILoggerManager _logger;
+       
+        public ValuesController(ILoggerManager logger)
+        {
+
+            _logger = logger;
+        }
 
         // GET api/values
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()
         {
+            _logger.Information("from values");
+
             return new string[] { "value1", "value2" };
         }
 

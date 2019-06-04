@@ -104,7 +104,7 @@ namespace simesjid.com.Controllers.Category.API.V1
         }
 
         [HttpPost(Name = "PostSubCategory")]
-        [Authorize(Roles = "Expense Category,Income Category")]
+        [Authorize(Roles = "Kategori Pemasukan,Kategori Pengeluaran")]
         public IActionResult Store([FromBody] CategoryModel model)
         {
             CategoryModelOutput categoryModel = new CategoryModelOutput();

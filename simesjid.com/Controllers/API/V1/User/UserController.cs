@@ -73,7 +73,7 @@ namespace simesjid.com.Controllers.User.API.V1
         }
 
         [HttpPost]
-        [Authorize(Roles = "User Role")]
+        [Authorize(Roles = "Pengaturan Pengguna")]
         public IActionResult Post([FromBody]UserModel request)
         {
             UserSessionManager usrSession = new UserSessionManager();
@@ -146,8 +146,8 @@ namespace simesjid.com.Controllers.User.API.V1
         }
 
         [HttpPut("{id}")]
-        [Authorize]
-        public IActionResult UPdate([FromBody]UserModel request,string id)
+        [Authorize(Roles = "Pengaturan Pengguna")]
+        public IActionResult Update([FromBody]UserModel request,string id)
         {
             UserSessionManager usrSession = new UserSessionManager();
             var user = User as ClaimsPrincipal;

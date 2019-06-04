@@ -73,7 +73,7 @@ namespace simesjid.com.Controllers.Setting.API.V1
         }
 
         [HttpPut("{id}")]
-        [Authorize]
+        [Authorize(Roles = "Pengaturan Mesjid")]
         public IActionResult Update([FromBody]SettingModel request, string id)
         {
             UserSessionManager usrSession = new UserSessionManager();

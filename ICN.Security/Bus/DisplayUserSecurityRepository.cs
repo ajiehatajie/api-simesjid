@@ -108,7 +108,7 @@ namespace ICN.Security.Bus
             {
                 using (var Cn = OpenDB())
                 {
-                    Query = @"SELECT * FROM vi_role_users where role_userid=?role_userid order by role_name asc";
+                    Query = @"SELECT * FROM vi_roles_user where user_id=?role_userid  order by role_name asc";
                     return Cn.Query<RoleModel>(Query, new { role_userid = UserId }).ToList();
 
                 }

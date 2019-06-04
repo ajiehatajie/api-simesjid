@@ -30,7 +30,7 @@ namespace ICN.Core.Income
                     var guid = Guid.NewGuid().ToString();
                     return await x.ExecuteAsync(DbQuery.IncomeNew, new { id = guid,
                         name = data.income_name,amount = data.income_amount,
-                        referency = data.income_ref,date = data.income_created,account = data.income_accountid,
+                        referency = data.income_ref,date = data.income_date,account = data.income_accountid,
                         category = data.income_categoryid, subcategory = data.income_subcategoryid,note= data.income_note,
                         picture = data.income_pictureid,userid = objUser.user_id,settingid = objUser.setting_id });
 
@@ -73,7 +73,7 @@ namespace ICN.Core.Income
                         name = data.income_name,
                         amount = data.income_amount,
                         referency = data.income_ref,
-                        date = data.income_created,
+                        date = data.income_date,
                         account = data.income_accountid,
                         category = data.income_categoryid,
                         subcategory = data.income_subcategoryid,
